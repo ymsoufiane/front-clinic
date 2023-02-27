@@ -1,4 +1,22 @@
 import { createApp } from 'vue'
 import App from './App.vue'
+import router from './router'
+import installApp from './plugins/installApp'
+import './assets/tailwind.css'
+import config from './config'
+import store from './store'
 
-createApp(App).mount('#app')
+
+const INSTALLED_APPS=[
+    'account',
+    
+]
+
+
+const app=createApp(App)
+    app.config.globalProperties.config=config
+    app.use(installApp,{apps:INSTALLED_APPS,'router':router}).
+    use(store).
+    use(router).
+    mount('#app')
+
