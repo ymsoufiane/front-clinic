@@ -1,6 +1,10 @@
-.icon-form{
- 
-    width:25px;
-    fill:#e4e4f3
-  
-  }
+.icon-form {
+
+  width: 25px;
+  fill: #e4e4f3
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:focus {
+  transition: background-color 600000s 0s, color 600000s 0s;
+}

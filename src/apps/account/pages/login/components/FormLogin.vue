@@ -63,7 +63,7 @@ export default {
                 "password":this.password,
                 "remember":this.isChecked
             }
-            this.$store.commit("setToken","token test")
+            
             this.err=await userApi.login(user)
             console.log(this.err)
             

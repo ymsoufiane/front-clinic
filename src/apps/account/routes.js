@@ -2,6 +2,7 @@ import AddUser from './pages/addAdmin/AddUser'
 import AddRole from './pages/addRole/AddRole'
 import LoginPage from './pages/login/LoginPage'
 import ListRoles from './pages/listRoles/ListRoles'
+import ListAdmin from './pages/listAdmin/ListAdmin'
 
 const routes = [
   {
@@ -21,6 +22,12 @@ const routes = [
     name: 'listRoles',
     parent:'dashboard',
     component: ListRoles
+  },
+  {
+    path: '/users',
+    name: 'listAdmin',
+    parent:'dashboard',
+    component: ListAdmin
   },
   {
     path: '/login',
