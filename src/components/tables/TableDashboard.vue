@@ -1,9 +1,18 @@
 <template>
-    <InputFilterDashboard placeholder="Search ..." />
-    <table  class="w-full shadow-sm rounded-xl text-start">
+    <InputFilterDashboard />
+    <table class="w-full shadow-sm rounded-xl text-start">
         <thead class="bg-[#f8f9fa]">
             <tr class="border-b">
-                <th v-for="(column, index) in columns" class="p-2 pl-4 text-xs text-start text-[#64748b] font-semibold" :key="index">{{ column['name'] }}</th>
+                <th v-for="(column, index) in columns" @click="OrderBy(column)"
+                    :class="{ 'cursor-pointer': column['type'] == 'text' }"
+                    class="p-2  pl-4 text-xs text-start text-[#64748b] font-semibold" :key="index">
+                    <div class="flex">
+                        {{ column['name'] }}
+                        <DownIcon stroke="#64748b" fill="#64748b" width="20px" v-if="showIconOrderBy(column) == 'DSC'" />
+                        <UpIcon stroke="#64748b"  width="20px" v-if="showIconOrderBy(column) == 'ASC'" />
+                    </div>
+
+                </th>
             </tr>
         </thead>
         <tbody class="bg-white">
@@ -18,7 +27,7 @@
                             <EditIcon v-if="action['name'] == 'edit'" class="icon-form cursor-pointer m-0" />
                             <DeleteIcon v-if="action['name'] == 'delete'" class="icon-form cursor-pointer m-0 fill-white" />
                             <div v-if="action['name'] == 'toggle'">
-                                
+
                                 <ToggleButton :value="row[action['champ']]" :id="row[action['id']]" />
                             </div>
                         </div>
@@ -38,24 +47,48 @@ import EditIcon from '@/components/icons/EditIcon.vue';
 import DeleteIcon from '@/components/icons/DeleteIcon.vue'
 import ToggleButton from '@/components/buttons/ToggleButton.vue'
 import InputFilterDashboard from '@/components/inputs/InputFilterDashboard.vue'
+import DownIcon from '../icons/DownIcon.vue';
+import UpIcon from '../icons/UpIcon.vue';
+
 export default {
-    
+
     name: 'TableDahboard',
-    components: { EditIcon, DeleteIcon, ToggleButton,InputFilterDashboard },
+    components: { EditIcon, DeleteIcon, ToggleButton, InputFilterDashboard, DownIcon,UpIcon },
+    data: function () {
+        return {
+
+        }
+    },
     methods: {
         runAction(action, row) {
             const payload = new Map()
             action['param'].forEach((item) => {
-                payload.set(item,row[item])
+                payload.set(item, row[item])
             })
 
             if (action['type'] == 'mutation') {
-               
-                this.$store.commit(action['method'],payload)
+                this.$store.commit(action['method'], payload)
             } else if (action['type'] == 'action') {
-                console.log(action['method'])
-                this.$store.dispatch(action['method'],payload)
+                this.$store.dispatch(action['method'], payload)
             }
+        },
+        OrderBy(column) {
+            const currentOrderByColumn = this.$store.getters['table/getOrderBy']
+            const payload = {}
+            payload['name'] = column['name']
+            if (currentOrderByColumn['name'] == column['name']) {
+                payload['order'] = currentOrderByColumn['order'] == 'DSC' ? 'ASC' : 'DSC'
+            } else {
+                payload['order'] = 'ASC'
+            }
+            this.$store.commit('table/setOrderBy', payload)
+        },
+        showIconOrderBy(column) {
+            const currentOrderByColumn = this.$store.getters['table/getOrderBy']
+            if (currentOrderByColumn['name'] == column['name']) {
+                return currentOrderByColumn['order']
+            }
+            return ''
         }
     },
     props: {

@@ -40,7 +40,7 @@
 import UserIcon from '@/components/icons/UserIcon.vue';
 import InputForm from './InputForm.vue';
 import PasswordIcon from '@/components/icons/PasswordIcon.vue';
-import SubmitButton from '../../../components/button/SubmitButton.vue';
+import SubmitButton from '@/components/buttons/SubmitButton.vue';
 import userApi from '@/apps/account/api/user.js';
 export default {
     name: 'FormLogin',

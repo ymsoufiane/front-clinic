@@ -1,14 +1,18 @@
 <template>
     <TableDashboard :columns="getColsName" :rows="getRows" />
+    <div class="py-4">
+        <PaginationComponent :total-items="totalItems" :items-per-page="itemsPerPage" :current-page="currentPage"
+            @page-changed="onPageChanged" />
+    </div>
 </template>
 
 <script>
 
 import TableDashboard from '@/components/tables/TableDashboard.vue'
-
+import PaginationComponent from '@/components/pagination/PaginationComponent.vue';
 export default {
     name: "ListAdmin",
-    components: { TableDashboard },
+    components: { TableDashboard,PaginationComponent },
     mounted() {
         const payload = {
             path: "/user/all"
@@ -17,6 +21,9 @@ export default {
     },
     data: function () {
         return {
+            totalItems:500,
+            itemsPerPage:10,
+            currentPage:1,
             users: [
                 {
                     'Id': 1,
@@ -108,9 +115,9 @@ export default {
             return {
                 "path": "/user",
                 "items": [
-                    { "type": "text", "champ": "FirstName", "name": "First Name", "placeholder": "Search By First Name" },
-                    { "type": "text", "champ": "LastName", "name": "Last Name", "placeholder": "Search By Last Name" },
-                    { "type": "select", "champ": "Etat", "name": "Etat", "values": ['item1', 'item2'] },
+                    { "type": "text", "champ": "FirstName", "name": "First Name", "placeholder": "First Name..." },
+                    { "type": "text", "champ": "LastName", "name": "Last Name", "placeholder": "Last Name..." },
+                    { "type": "select", "champ": "Etat", "name": "Etat","placeholder":"Select Etat ...", "values": ['item1', 'item2'] },
                 ]
             }
         },
@@ -124,7 +131,9 @@ export default {
         }
     },
     methods: {
-
+        onPageChanged(page){
+            this.currentPage=page
+        }
     }
 }
 

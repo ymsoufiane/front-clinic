@@ -6,7 +6,7 @@
                 <DynamicIcon width="20px" :component="item.icon" />
                 <div class="col-span-4"> {{ item.name }}</div>
                 <RightIcon v-if="hasChildren && !active" width="20px" />
-                <DownIcon v-if="hasChildren && active" width="20px" />
+                <DownIcon v-if="hasChildren && active" fill="white" stroke="white" width="20px" />
             </div>
         </router-link>
         <div v-if="active && hasChildren">
@@ -37,7 +37,7 @@
 import DownIcon from '../icons/DownIcon.vue';
 import RightIcon from '../icons/RightIcon.vue';
 
-import DynamicIcon from '../icons/DynamicIcon.vue';
+import DynamicIcon from '../DynamicComponenet.vue';
 
 export default {
     name: 'AsideItem',

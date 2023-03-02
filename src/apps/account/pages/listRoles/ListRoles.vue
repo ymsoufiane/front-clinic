@@ -1,13 +1,18 @@
 <template>
     <TableDashboard :columns="getColsName" :rows="roles" />
+    <div class="py-4">
+        <PaginationComponent :total-items="totalItems" :items-per-page="itemsPerPage" :current-page="currentPage"
+            @page-changed="onPageChanged" />
+    </div>
 </template>
 
 <script>
 
 import TableDashboard from '@/components/tables/TableDashboard.vue'
+import PaginationComponent from '@/components/pagination/PaginationComponent.vue';
 export default {
     name: "ListRoles",
-    components: {TableDashboard },
+    components: {TableDashboard,PaginationComponent},
     mounted() {
         const payload = {
             path: "/role/all"
@@ -16,18 +21,24 @@ export default {
     },
     data: function () {
         return {
+            totalItems:500,
+            itemsPerPage:10,
+            currentPage:1,
             roles: [
                 {
+                    "ID":1,
                     "role_name": "role1",
                     "description": "description test bla  ",
                     "priviliges":'prive1,prive2,prive3,...'
                 },
                 {
+                    "ID":2,
                     "role_name": "role1",
                     "description": "description test bla  ",
                     "priviliges":'prive1,prive2,prive3,...'
                 },
                 {
+                    "ID":3,
                     "role_name": "role1",
                     "description": "description test bla  ",
                     "priviliges":'prive1,prive2,prive3,...'
@@ -104,6 +115,9 @@ export default {
             arr.push(privs)
 
             return arr;
+        },
+        onPageChanged(page){
+            this.currentPage=page
         }
     }
 }

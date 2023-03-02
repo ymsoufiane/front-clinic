@@ -3,15 +3,15 @@
         <div class="bg-white shadow-md rounded-md w-52 ">
             <select @change="selectItem($event)"
                 class="w-full text-[#64748b] py-2 px-4 outline-none border-none focus:border-none focus:outline-none" name="" id="">
-                <option value="">Filter par ...</option>
+                
                 <option v-for="(item, index) in filter.items" :key="index" :value="item['champ']">{{ item['name'] }}
                 </option>
             </select>
         </div>
 
         <div v-if="type == 'text'" class="flex bg-white shadow-md rounded-md ml-4">
-            <div class="">
-                <input @change="submit($event)" type="text" class="py-2 px-4 outline-none w-60" :placeholder="placeholder"
+            <div class="flex align-content-center">
+                <input @change="submit($event)" type="text" class="px-4 outline-none w-52" :placeholder="placeholder"
                     name="" id="">
             </div>
             <div class="flex content-center px-2 ">
@@ -21,7 +21,7 @@
         <div v-if="type == 'select'" class="bg-white shadow-md rounded-md w-52 ml-4">
             <select @change="submit($event)" 
                 class="w-full text-[#64748b] py-2 px-4 outline-none border-none focus:border-none focus:outline-none" name="" id="">
-                <option value="">Select ...</option>
+                <option value="">{{placeholder}}</option>
                 <option v-for="(item, index) in selectItems" :key="index" :value="item">{{ item }}
                 </option>
             </select>
@@ -33,7 +33,6 @@
 import SearchIcon from '@/components/icons/SearchIcon.vue'
 export default {
     name: "InputFilterDashboard",
-    props: ['placeholder'],
     inject: ['filter'],
     components: { SearchIcon },
     mounted() {
@@ -41,13 +40,21 @@ export default {
         {
             const path = this.filter['path']
             this.$store.commit('table/setPath', path)
+            const event={
+                target:{
+                    value:this.filter['items'][0]['champ']
+                }
+            }
+            this.selectItem(event)
+
         }
     },
     data: function () {
         return {
             selected: '',
             type: '',
-            selectItems: []
+            selectItems: [],
+            placeholder:''
         }
     },
     computed:{
@@ -73,8 +80,9 @@ export default {
             for (let i = 0; i < this.filter['items'].length; i++)
                 if (this.filter['items'][i]['champ'] == value) {
                     this.type = this.filter['items'][i]['type']
+                    this.placeholder=this.filter['items'][i]['placeholder']
                     if (this.filter['items'][i]['type'] == 'select') {
-                     
+                        
                         this.selectItems = this.filter['items'][i]['values']
                     }
                     break

@@ -9,6 +9,7 @@ const tableStore = {
             isLoading: false,
             filterChamp: '',
             filterValue: '',
+            orderBy:{},
             methode: '',
             path: '',
             err: {}
@@ -24,6 +25,9 @@ const tableStore = {
         isLoading(state) {
             return state.isLoading
         },
+        getOrderBy(state){
+            return state.orderBy
+        }
 
 
     },
@@ -46,12 +50,17 @@ const tableStore = {
         setPath(state, path) {
             state.path = path
         },
+        setOrderBy(state,orderBy){
+            state.orderBy=orderBy
+            this.commit('table/setFilterValue',state.filterValue)
+        },
         setFilterValue(state, value) {
             state.filterValue = value
             const payload = {
                 "data": {
                     "champ": state.filterChamp,
                     "value": state.filterValue,
+                    "orderBy":state.orderBy
                 },
                 "methode": "post",
                 "path": state.path
@@ -66,8 +75,6 @@ const tableStore = {
     },
     actions: {
         async loadData({ commit }, payload) {
-            console.log("load data ")
-            console.log(payload)
             commit('setIsLoading', true)
             const config = {
                 headers: {

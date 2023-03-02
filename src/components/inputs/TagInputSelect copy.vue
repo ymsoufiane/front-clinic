@@ -2,14 +2,14 @@
     <div class="tag-input-select ">
         <div class="tags">
             <div class="tag" v-for="(tag, index) in selectedTags" :key="index">
-                {{ tag['name'] }}
+                {{ tag }}
                 <button class="remove-tag" @click="removeTag(index)">x</button>
             </div>
         </div>
         <input type="text" :placeholder="placeholder" class="input-tag px-4 outline-none rounded py-2 border-[#e4e4f3] border-2" v-model="newTag"  @focus="changeEtatShow" @keydown.enter="addTag" @keydown.delete="deleteTag"   />
         <ul class="options" v-if="showOptions">
             <li v-for="(option, index) in filteredOptions"  :key="index" @click="selectTag(option)">
-                {{ option['name'] }}
+                {{ option }}
             </li>
         </ul>
     </div>
@@ -38,7 +38,7 @@ export default {
     computed: {
         filteredOptions() {
             return this.options.filter((option) =>
-                option['name'].toLowerCase().includes(this.newTag.toLowerCase())
+                option.toLowerCase().includes(this.newTag.toLowerCase())
                     
             ).filter(item => !this.selectedTags.includes(item));
         },

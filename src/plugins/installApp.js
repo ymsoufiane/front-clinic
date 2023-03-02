@@ -3,7 +3,6 @@ import store from "@/store";
 
 export default {
   install(app, options) {
-    console.log(app)
     const { router, apps } = options;
     apps.forEach(appName => {
 

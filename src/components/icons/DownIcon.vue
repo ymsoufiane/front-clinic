@@ -3,7 +3,7 @@
         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
     <g id="SVGRepo_iconCarrier">
-        <path d="M8 10L12 14L16 10" stroke="#FFFFFF" stroke-width="1.656" stroke-linecap="round"
+        <path d="M8 10L12 14L16 10"  stroke-width="1.656" stroke-linecap="round"
             stroke-linejoin="round"></path>
     </g>
 </svg>
