@@ -1,7 +1,7 @@
 <template>
     <div class="tag-input-select ">
-        <div class="tags">
-            <div class="tag" v-for="(tag, index) in selectedTags" :key="index">
+        <div v-if="selectedTags.length>0" class="tags">
+            <div class="tag"  v-for="(tag, index) in selectedTags" :key="index">
                 {{ tag['name'] }}
                 <button class="remove-tag" @click="removeTag(index)">x</button>
             </div>
@@ -18,6 +18,7 @@
 <script>
 
 export default {
+
     props: {
         options: {
             type: Array,
@@ -26,10 +27,14 @@ export default {
         placeholder:{
             require:"true"
         },
+        value:{
+            require:false
+        }
     },
     data() {
         return {
-            selectedTags: [],
+            
+            selectedTags: (this.value?this.value:[]),
             newTag: "",
             showOptions: false,
             selectOptions:this.options

@@ -5,7 +5,7 @@
         </div>
         <div :class="colorBorder" class="rounded py-2 flex">
             <div class="w-full">
-                <input :class="placeholderColor" :value="input['value']" class="px-4 outline-none w-full text-base text-[#000000de] font-light"
+                <input :class="placeholderColor" :name="input['name']" :value="input['value']" class="px-4 outline-none w-full text-base text-[#000000de] font-light"
                 :type="input['type']" :placeholder="input['placeholder']" @input="handleInput">
             </div>
             <div class="w-min px-4 content-center flex ">

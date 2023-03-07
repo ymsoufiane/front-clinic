@@ -8,7 +8,7 @@ const groups = [
                 "icon":"UserIcon",
                 "link":"",
                 "children": [
-                    { "name": "Add Admin", "isActive": "","link":"/add/user", },
+                    { "name": "Add Admin", "isActive": "","link":"/add/admin", },
                     { "name": "List Admin", "isActive": "","link":"/users", },
                 ]
             },

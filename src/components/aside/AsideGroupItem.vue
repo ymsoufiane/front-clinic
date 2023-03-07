@@ -5,8 +5,6 @@
       <AsideItem :item="item" :itemIndex="index" />
     </div>
 
-
-
   </div>
 </template>
 

@@ -12,7 +12,7 @@ import TableDashboard from '@/components/tables/TableDashboard.vue'
 import PaginationComponent from '@/components/pagination/PaginationComponent.vue';
 export default {
     name: "ListRoles",
-    components: {TableDashboard,PaginationComponent},
+    components: { TableDashboard, PaginationComponent },
     mounted() {
         const payload = {
             path: "/role/all"
@@ -21,27 +21,27 @@ export default {
     },
     data: function () {
         return {
-            totalItems:500,
-            itemsPerPage:10,
-            currentPage:1,
+            totalItems: 500,
+            itemsPerPage: 10,
+            currentPage: 1,
             roles: [
                 {
-                    "ID":1,
+                    "ID": 1,
                     "role_name": "role1",
                     "description": "description test bla  ",
-                    "priviliges":'prive1,prive2,prive3,...'
+                    "priviliges": 'prive1,prive2,prive3,...'
                 },
                 {
-                    "ID":2,
+                    "ID": 2,
                     "role_name": "role1",
                     "description": "description test bla  ",
-                    "priviliges":'prive1,prive2,prive3,...'
+                    "priviliges": 'prive1,prive2,prive3,...'
                 },
                 {
-                    "ID":3,
+                    "ID": 3,
                     "role_name": "role1",
                     "description": "description test bla  ",
-                    "priviliges":'prive1,prive2,prive3,...'
+                    "priviliges": 'prive1,prive2,prive3,...'
                 },
             ]
         }
@@ -50,12 +50,50 @@ export default {
 
         getColsName() {
             return [
-                { 'name': "Role Name", 'champ': 'role_name', 'type': "text" },
-                { 'name': "Description", 'champ': 'description', 'type': "text" },
-                { 'name': "Priviliges", 'champ': 'priviliges', 'type': "text" },
+                {
+                    'name': "Role Name",
+                    'champ': 'role_name',
+                    'type': "text",
+                    "filter": {
+                        "placeholder":"Role Name",
+                        "type": "text",   
+                    }
+                },
+                { 
+                    'name': "Description",
+                    'champ': 'description',
+                    'type': "text" ,
+                    "filter": {
+                        "placeholder":"Description",
+                        "type": "text",   
+                    }
+                },
+                { 
+                    'name': "Priviliges",
+                    'champ': 'priviliges',
+                    'type': "text",
+                    "filter": {
+                        "placeholder":"Priviliges",
+                        "type": "tagInput",
+                        "options": [
+                            { "name": "priv1", "value": "item1" },
+                            { "name": "priv2", "value": "item1" },
+                        ]
+                    },
+
+                },
                 {
                     'name': "Etat",
                     'type': "action",
+                    "filter": {
+                        "placeholder":"Etat",
+                        "type": "select",
+                        
+                        "options": [
+                            { "name": "enable", "value": "item1" },
+                            { "name": "disable", "value": "item1" },
+                        ]
+                    },
                     'actions': [
                         {
                             'name': "toggle",
@@ -70,11 +108,12 @@ export default {
                 {
                     'name': "Action",
                     'type': "action",
+                    "filter": {},
                     "actions": [
                         {
                             'name': 'edit',
                             'type': 'mutation',
-                            'method': 'user/testMutation',
+                            'method': 'user/editRole',
                             'param': ['ID', 'first_name'],
                         },
                         {
@@ -91,20 +130,9 @@ export default {
 
             ]
         },
-        getFilter() {
-            return {
-                "path": "/roles",
-                "items": [
-                    { "type": "text", "champ": "RoleName", "name": "Role Name", "placeholder": "Search By Role Name ..." },
-                ]
-            }
-        },
+
     },
-    provide() {
-        return {
-            filter: this.getFilter
-        }
-    },
+
     methods: {
         getItem(role) {
             let arr = []
@@ -116,8 +144,8 @@ export default {
 
             return arr;
         },
-        onPageChanged(page){
-            this.currentPage=page
+        onPageChanged(page) {
+            this.currentPage = page
         }
     }
 }

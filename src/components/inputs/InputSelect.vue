@@ -1,15 +1,12 @@
 <template>
-    <div class="tag-input-select ">
-        <div class="tags">
-            <div class="tag" v-for="(tag, index) in selectedTags" :key="index">
-                {{ tag }}
-                <button class="remove-tag" @click="removeTag(index)">x</button>
-            </div>
+    <div class="input-select ">
+        <div @click="changeEtatShow" class="cursor-pointer input-tag px-4 outline-none rounded py-2 border-[#e4e4f3] border-2">
+            <div class="text-[#00000070]" v-if="selectedOption['name']==null">{{placeholder}}</div>
+            <div v-else>{{selectedOption['name']  }}</div>
         </div>
-        <input type="text" :placeholder="placeholder" class="input-tag px-4 outline-none rounded py-2 border-[#e4e4f3] border-2" v-model="newTag"  @focus="changeEtatShow" @keydown.enter="addTag" @keydown.delete="deleteTag"   />
         <ul class="options" v-if="showOptions">
             <li v-for="(option, index) in filteredOptions"  :key="index" @click="selectTag(option)">
-                {{ option }}
+                {{ option['name'] }}
             </li>
         </ul>
     </div>
@@ -18,6 +15,7 @@
 <script>
 
 export default {
+
     props: {
         options: {
             type: Array,
@@ -26,11 +24,15 @@ export default {
         placeholder:{
             require:"true"
         },
+        value:{
+            require:false
+        }
     },
     data() {
         return {
-            selectedTags: [],
-            newTag: "",
+            
+            selectedOption: (this.value?this.value:{}),
+
             showOptions: false,
             selectOptions:this.options
         };
@@ -38,34 +40,18 @@ export default {
     computed: {
         filteredOptions() {
             return this.options.filter((option) =>
-                option.toLowerCase().includes(this.newTag.toLowerCase())
+                option['name'].toLowerCase()
                     
-            ).filter(item => !this.selectedTags.includes(item));
+            )
         },
     },
 
     methods: {
-        addTag() {
-            if (this.newTag && !this.selectedTags.includes(this.newTag)) {
-                this.selectedTags.push(this.newTag);
-                this.$emit('change',this.selectedTags)
-                this.newTag = "";
-            }
-        },
-        removeTag(index) {
-            this.selectedTags.splice(index, 1);
-            this.$emit('change',this.selectedTags)
-        },
-        deleteTag() {
-            if (this.newTag === "") {
-                this.removeTag(this.selectedTags.length - 1);
-            }
-        },
-        selectTag(tag) {
+
+        selectTag(opt) {
           
-            this.selectedTags.push(tag);
-            this.$emit('change',this.selectedTags)
-            this.newTag = "";
+            this.selectedOption=opt;
+            this.$emit('change',opt)
             this.showOptions = false;
         },
         changeEtatShow(){
@@ -76,7 +62,7 @@ export default {
 </script>
   
 <style>
-.tag-input-select {
+.input-select {
     display: flex;
     flex-direction: column;
     align-items: flex-start;

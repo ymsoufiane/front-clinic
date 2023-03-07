@@ -68,14 +68,53 @@ export default {
 
             return [
                 // { 'name': "Image ", 'champ': 'image', 'type': "image", "width": "30" },
-                { 'name': "First Name", 'champ': 'FirstName', 'type': "text" },
-                { 'name': "Last Name", 'champ': 'LastName', 'type': "text" },
-                { 'name': "Username", 'champ': 'Username', 'type': "text" },
-                { 'name': "Phone Number", 'champ': 'PhoneNumber', 'type': "text" },
-                { 'name': "E-mail ", 'champ': 'Email', 'type': "text" },
+                { 
+                    'name': "First Name", 'champ': 'FirstName', 'type': "text" ,
+                    "filter": {
+                        "placeholder":"First Name",
+                        "type": "text",   
+                    }
+                },
+                {
+                     'name': "Last Name", 'champ': 'LastName', 'type': "text",
+                     "filter": {
+                        "placeholder":"Last Name",
+                        "type": "text",   
+                    }
+                },
+                { 
+                    'name': "Username", 'champ': 'Username', 'type': "text",
+                    "filter": {
+                        "placeholder":"Username",
+                        "type": "text",   
+                    }
+                },
+                { 
+                    'name': "Phone Number", 'champ': 'PhoneNumber', 'type': "text",
+                    "filter": {
+                        "placeholder":"Phone Number",
+                        "type": "text",   
+                    }
+                },
+                { 
+                    'name': "E-mail ", 'champ': 'Email', 'type': "text",
+                    "filter": {
+                        "placeholder":"E-mail",
+                        "type": "text",   
+                    }
+                },
                 {
                     'name': "Etat",
                     'type': "action",
+                    "filter": {
+                        "placeholder":"Etat",
+                        "type": "select",
+                        
+                        "options": [
+                            { "name": "enable", "value": "item1" },
+                            { "name": "disable", "value": "item1" },
+                        ]
+                    },
                     'actions': [
                         {
                             'name': "toggle",
@@ -90,11 +129,12 @@ export default {
                 {
                     'name': "Action",
                     'type': "action",
+                    "filter":{},
                     "actions": [
                         {
                             'name': 'edit',
                             'type': 'mutation',
-                            'method': 'user/testMutation',
+                            'method': 'user/editAdmin',
                             'param': ['ID', 'first_name'],
                         },
                         {
@@ -111,25 +151,12 @@ export default {
 
             ]
         },
-        getFilter() {
-            return {
-                "path": "/user",
-                "items": [
-                    { "type": "text", "champ": "FirstName", "name": "First Name", "placeholder": "First Name..." },
-                    { "type": "text", "champ": "LastName", "name": "Last Name", "placeholder": "Last Name..." },
-                    { "type": "select", "champ": "Etat", "name": "Etat","placeholder":"Select Etat ...", "values": ['item1', 'item2'] },
-                ]
-            }
-        },
+
         getRows() {
             return this.$store.getters['table/getCols']
         },
     },
-    provide() {
-        return {
-            filter: this.getFilter
-        }
-    },
+
     methods: {
         onPageChanged(page){
             this.currentPage=page

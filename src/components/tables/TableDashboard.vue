@@ -16,6 +16,12 @@
             </tr>
         </thead>
         <tbody class="bg-white">
+            <tr class="border-b" >
+                <td class="p-2 pl-4 text-sm" v-for="(column, columnIndex) in columns" :key="columnIndex">
+                    <GenericInput v-if="column['filter']['type']!=null" :input="column['filter']" />
+                </td>
+            </tr>
+
             <tr class="border-b" v-for="(row, rowIndex) in rows" :key="rowIndex">
                 <td class="p-2 pl-4 text-sm" v-for="(column, columnIndex) in columns" :key="columnIndex">
                     <span v-if="column['type'] == 'text'">
@@ -27,7 +33,6 @@
                             <EditIcon v-if="action['name'] == 'edit'" class="icon-form cursor-pointer m-0" />
                             <DeleteIcon v-if="action['name'] == 'delete'" class="icon-form cursor-pointer m-0 fill-white" />
                             <div v-if="action['name'] == 'toggle'">
-
                                 <ToggleButton :value="row[action['champ']]" :id="row[action['id']]" />
                             </div>
                         </div>
@@ -46,14 +51,15 @@
 import EditIcon from '@/components/icons/EditIcon.vue';
 import DeleteIcon from '@/components/icons/DeleteIcon.vue'
 import ToggleButton from '@/components/buttons/ToggleButton.vue'
-import InputFilterDashboard from '@/components/inputs/InputFilterDashboard.vue'
+import InputFilterDashboard from '@/components/inputs/InputSearchTables.vue'
 import DownIcon from '../icons/DownIcon.vue';
 import UpIcon from '../icons/UpIcon.vue';
+import GenericInput from '../inputs/GenericInput.vue';
 
 export default {
 
     name: 'TableDahboard',
-    components: { EditIcon, DeleteIcon, ToggleButton, InputFilterDashboard, DownIcon,UpIcon },
+    components: { EditIcon, DeleteIcon, ToggleButton, InputFilterDashboard, DownIcon,UpIcon,GenericInput },
     data: function () {
         return {
 
@@ -62,10 +68,7 @@ export default {
     methods: {
         runAction(action, row) {
             const payload = new Map()
-            action['param'].forEach((item) => {
-                payload.set(item, row[item])
-            })
-
+            payload.set("data", row)
             if (action['type'] == 'mutation') {
                 this.$store.commit(action['method'], payload)
             } else if (action['type'] == 'action') {
@@ -89,7 +92,9 @@ export default {
                 return currentOrderByColumn['order']
             }
             return ''
-        }
+        },
+
+
     },
     props: {
         columns: {

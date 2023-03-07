@@ -8,10 +8,11 @@ export default  {
             const token =response.data.Token
             if(user.remember)
                     localStorage.setItem('token', token)
-                    store.user.commit("setToken",token)
+                    store.commit("user/setToken",token)
             router.push("/dashboard")
             return {}
         }catch(err){
+            console.log(err)
             const arrErrValidation=err.response.data.ErrValidation
             const result={}
             if (arrErrValidation!=null)

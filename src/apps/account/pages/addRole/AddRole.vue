@@ -1,33 +1,24 @@
 <template>
-   <FormDashboard :inputs="inputs" />
+   <FormDashboard :inputs="inputs" @submitForm="onsubmit"  />
 </template>
 
 <script>
 import FormDashboard from '@/components/form/FormDashboard.vue';
+import roleForm from '../../components/forms/roleForm';
 export default {
 
   name: 'AddRole',
   data:function(){
     return{
-      inputs:[
-        {"type":"text","name":"role_name","placeholder":"","title":"Role name","icon":"UserIcon"},
-        {"type":"text","name":"description","placeholder":"","title":"Description","icon":"UserIcon"},
-        { 
-          "type":"tagInput",
-          "name":"priviliges",
-          "placeholder":"Select Priviliges",
-          "options":[
-            {"name":"Privilige1","value":1},
-            {"name":"Privilige2","value":2},
-            {"name":"Privilige3","value":3},
-            {"name":"Privilige4","value":4},
-
-          ]
-        },
-        {"type":"submit","text":"Add User"},
-      ]
+      inputs:roleForm
     }
   },
-  components: {FormDashboard }
+  components: {FormDashboard },
+  methods:{
+    onsubmit(data){
+      console.log("recieve submit event")
+      console.log(data)
+    }
+  }
 }
 </script>

@@ -44,6 +44,9 @@ export default {
     components: {/* TaskIcon,*/ RightIcon, DownIcon,DynamicIcon},
     props: ['item', 'itemIndex'],
     inject: ['groupIndex'],
+    mounted(){
+        this.isActive()
+    },
     data() {
 
         return {
@@ -66,6 +69,19 @@ export default {
                 indexChild:indexChild
             }
             this.$store.commit("aside/activeChildItem", info)
+        },
+        
+        isActive(){
+            if(this.item.link==this.$route.path)
+                this.open()
+            for(let i=0;i<this.item['children'].length;i++)
+                if(this.item['children'][i].link==this.$route.path){
+                    this.open()
+                    this.setActiveChild(i)
+                }
+                    
+            
+         
         }
 
 

@@ -1,4 +1,4 @@
-
+import router from "@/router";
 const userStore = {
   namespaced: true,
   state() {
@@ -11,9 +11,14 @@ const userStore = {
 
       state.token = token
     },
-    testMutation(state,payload){
-      console.log("run mutation test")
+
+    editAdmin(state,payload){
       console.log(payload)
+      router.push("/edit/admin")
+    },
+    editRole(state,payload){
+      console.log(payload)
+      router.push("/edit/role")
     }
 
   },
