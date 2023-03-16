@@ -1,17 +1,21 @@
 <template>
     <div class="tag-input-select ">
-        <div v-if="selectedTags.length>0" class="tags">
-            <div class="tag"  v-for="(tag, index) in selectedTags" :key="index">
+        <div v-if="selectedTags.length > 0" class="tags">
+            <div class="tag" v-for="(tag, index) in selectedTags" :key="index">
                 {{ tag['name'] }}
                 <button class="remove-tag" @click="removeTag(index)">x</button>
             </div>
         </div>
-        <input type="text" :placeholder="placeholder" class="input-tag px-4 outline-none rounded py-2 border-[#e4e4f3] border-2" v-model="newTag"  @focus="changeEtatShow" @keydown.enter="addTag" @keydown.delete="deleteTag"   />
-        <ul class="options" v-if="showOptions">
-            <li v-for="(option, index) in filteredOptions"  :key="index" @click="selectTag(option)">
-                {{ option['name'] }}
-            </li>
-        </ul>
+        <input type="text" :placeholder="placeholder"
+            class="input-tag px-4 outline-none rounded py-2 border-[#e4e4f3] border-2" v-model="newTag"
+            @focus="changeEtatShow" @keydown.enter="addTag" @keydown.delete="deleteTag" />
+        <div class="relative w-full z-30">
+            <ul class="options absolute" v-if="showOptions">
+                <li v-for="(option, index) in filteredOptions" :key="index" @click="selectTag(option)">
+                    {{ option['name'] }}
+                </li>
+            </ul>
+        </div>
     </div>
 </template>
   
@@ -24,27 +28,27 @@ export default {
             type: Array,
             required: false,
         },
-        placeholder:{
-            require:"true"
+        placeholder: {
+            require: "true"
         },
-        value:{
-            require:false
+        value: {
+            require: false
         }
     },
     data() {
         return {
-            
-            selectedTags: (this.value?this.value:[]),
+
+            selectedTags: (this.value ? this.value : []),
             newTag: "",
             showOptions: false,
-            selectOptions:this.options
+            selectOptions: this.options
         };
     },
     computed: {
         filteredOptions() {
             return this.options.filter((option) =>
                 option['name'].toLowerCase().includes(this.newTag.toLowerCase())
-                    
+
             ).filter(item => !this.selectedTags.includes(item));
         },
     },
@@ -53,13 +57,13 @@ export default {
         addTag() {
             if (this.newTag && !this.selectedTags.includes(this.newTag)) {
                 this.selectedTags.push(this.newTag);
-                this.$emit('change',this.selectedTags)
+                this.$emit('change', this.selectedTags)
                 this.newTag = "";
             }
         },
         removeTag(index) {
             this.selectedTags.splice(index, 1);
-            this.$emit('change',this.selectedTags)
+            this.$emit('change', this.selectedTags)
         },
         deleteTag() {
             if (this.newTag === "") {
@@ -67,14 +71,14 @@ export default {
             }
         },
         selectTag(tag) {
-          
+
             this.selectedTags.push(tag);
-            this.$emit('change',this.selectedTags)
+            this.$emit('change', this.selectedTags)
             this.newTag = "";
             this.showOptions = false;
         },
-        changeEtatShow(){
-                this.showOptions=!this.showOptions
+        changeEtatShow() {
+            this.showOptions = !this.showOptions
         }
     },
 };

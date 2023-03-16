@@ -33,7 +33,7 @@ export default {
     methods: {
         handelChange(value, input) {
             const payload = { input, value }
-            this.$emit('input', payload)
+            this.$emit('change', payload)
         },
 
     },

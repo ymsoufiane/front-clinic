@@ -6,7 +6,7 @@
                 Previous
             </li>
             <li class="px-4 py-2 bg-white border-r border-gray-300 cursor-pointer hover:bg-gray-100"
-                v-for="pageNumber in pageNumbers()" :key="pageNumber" :class="{ 'font-bold': pageNumber === currentPage }"
+                v-for="pageNumber in pageNumbers()" :key="pageNumber" :class="{ 'font-bold': pageNumber == currentPage }"
                 @click="goToPage(pageNumber)">
                 {{ pageNumber }}
             </li>
@@ -60,6 +60,8 @@ export default {
             if (this.currentMax <= this.currentPage) {
                 let max = this.currentMax + 5
                 return max > this.totalPages ? this.totalPages : max
+            }if(this.currentMax>this.totalPages){
+                return this.totalPages
             }
             return this.currentMax
         },

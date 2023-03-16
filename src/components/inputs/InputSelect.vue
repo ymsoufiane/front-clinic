@@ -1,61 +1,64 @@
 <template>
     <div class="input-select ">
-        <div @click="changeEtatShow" class="cursor-pointer input-tag px-4 outline-none rounded py-2 border-[#e4e4f3] border-2">
-            <div class="text-[#00000070]" v-if="selectedOption['name']==null">{{placeholder}}</div>
-            <div v-else>{{selectedOption['name']  }}</div>
+        <div @click="changeEtatShow"
+            class="cursor-pointer input-tag p-2 outline-none rounded flex justify-between border-[#e4e4f3] border-2">
+            <div class="text-[#00000070]" v-if="selectedOption['name'] == null">{{ placeholder }}</div>
+            <div v-else>{{ selectedOption['name'] }}</div>
+            <DownIcon width="20px" stroke="#a3a3df" />
         </div>
-        <ul class="options" v-if="showOptions">
-            <li v-for="(option, index) in filteredOptions"  :key="index" @click="selectTag(option)">
-                {{ option['name'] }}
-            </li>
-        </ul>
+        <div class="relative w-full z-30">
+            <ul class="options absolute" v-if="showOptions">
+                <li v-for="(option, index) in filteredOptions" :key="index" @click="selectOption(option)">
+                    {{ option['name'] }}
+                </li>
+            </ul>
+        </div>
     </div>
 </template>
   
 <script>
-
+import DownIcon from '../icons/DownIcon.vue';
 export default {
-
+    components:{DownIcon},
     props: {
         options: {
             type: Array,
             required: false,
         },
-        placeholder:{
-            require:"true"
+        placeholder: {
+            require: "true"
         },
-        value:{
-            require:false
+        value: {
+            require: false
         }
     },
     data() {
         return {
-            
-            selectedOption: (this.value?this.value:{}),
+
+            selectedOption: (this.value ? this.value : {}),
 
             showOptions: false,
-            selectOptions:this.options
+            selectOptions: this.options
         };
     },
     computed: {
         filteredOptions() {
             return this.options.filter((option) =>
                 option['name'].toLowerCase()
-                    
             )
         },
     },
 
     methods: {
 
-        selectTag(opt) {
-          
-            this.selectedOption=opt;
-            this.$emit('change',opt)
+        selectOption(opt) {
+            
+            this.selectedOption = opt;
+            this.$emit('change', opt)
             this.showOptions = false;
         },
-        changeEtatShow(){
-                this.showOptions=!this.showOptions
+        changeEtatShow() {
+            this.showOptions = !this.showOptions
         }
     },
 };

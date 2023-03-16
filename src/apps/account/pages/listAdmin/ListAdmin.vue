@@ -1,29 +1,21 @@
 <template>
     <TableDashboard :columns="getColsName" :rows="getRows" />
-    <div class="py-4">
-        <PaginationComponent :total-items="totalItems" :items-per-page="itemsPerPage" :current-page="currentPage"
-            @page-changed="onPageChanged" />
-    </div>
+
 </template>
 
 <script>
-
 import TableDashboard from '@/components/tables/TableDashboard.vue'
-import PaginationComponent from '@/components/pagination/PaginationComponent.vue';
 export default {
     name: "ListAdmin",
-    components: { TableDashboard,PaginationComponent },
+    components: { TableDashboard },
     mounted() {
-        const payload = {
-            path: "/user/all"
-        }
-        this.$store.dispatch('table/loadData', payload)
+        
+        this.$store.commit('table/setPath',"user/users")
+        this.$store.commit('table/loadData')
     },
     data: function () {
         return {
-            totalItems:500,
-            itemsPerPage:10,
-            currentPage:1,
+            
             users: [
                 {
                     'Id': 1,
@@ -64,43 +56,53 @@ export default {
         }
     },
     computed: {
+       
         getColsName() {
 
             return [
-                // { 'name': "Image ", 'champ': 'image', 'type': "image", "width": "30" },
                 { 
                     'name': "First Name", 'champ': 'FirstName', 'type': "text" ,
                     "filter": {
                         "placeholder":"First Name",
                         "type": "text",   
+                        "champ":"first_name",
+                        "op":"like"
                     }
                 },
                 {
                      'name': "Last Name", 'champ': 'LastName', 'type': "text",
                      "filter": {
                         "placeholder":"Last Name",
-                        "type": "text",   
+                        "type": "text",  
+                        "champ":"last_name",
+                        "op":"like"
                     }
                 },
                 { 
                     'name': "Username", 'champ': 'Username', 'type': "text",
                     "filter": {
                         "placeholder":"Username",
-                        "type": "text",   
+                        "type": "text",
+                        "champ":"username",
+                        "op":"like"
                     }
                 },
                 { 
                     'name': "Phone Number", 'champ': 'PhoneNumber', 'type': "text",
                     "filter": {
                         "placeholder":"Phone Number",
-                        "type": "text",   
+                        "type": "text", 
+                        "champ":"phone_number",
+                        "op":"like"
                     }
                 },
                 { 
                     'name': "E-mail ", 'champ': 'Email', 'type': "text",
                     "filter": {
                         "placeholder":"E-mail",
-                        "type": "text",   
+                        "type": "text",  
+                        "champ":"email",
+                        "op":"like"
                     }
                 },
                 {
@@ -108,8 +110,9 @@ export default {
                     'type': "action",
                     "filter": {
                         "placeholder":"Etat",
-                        "type": "select",
-                        
+                        "type": "select", 
+                        "champ":"etat",
+                        "op":"=",
                         "options": [
                             { "name": "enable", "value": "item1" },
                             { "name": "disable", "value": "item1" },
@@ -153,7 +156,7 @@ export default {
         },
 
         getRows() {
-            return this.$store.getters['table/getCols']
+            return this.$store.getters['table/getRows']
         },
     },
 

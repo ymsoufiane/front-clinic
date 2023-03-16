@@ -7,12 +7,15 @@ const tableStore = {
             rows: [],
             cols: [],
             isLoading: false,
-            filterChamp: '',
-            filterValue: '',
-            orderBy:{},
+            orderBy: {},
             methode: '',
             path: '',
-            err: {}
+            err: {},
+            filter: [],
+            pageSize:2,
+            currentPage:1,
+            totalPages:500,
+
         }
     },
     getters: {
@@ -25,18 +28,44 @@ const tableStore = {
         isLoading(state) {
             return state.isLoading
         },
-        getOrderBy(state){
+        getOrderBy(state) {
             return state.orderBy
+        },
+        getTotalPages(state){
+            console.log('total page '+state.totalPages)
+            return state.totalPages
+        },
+        getCurrentPage(state){
+            console.log("run get current page "+state.currentPage)
+            return state.currentPage
+        },
+        getPageSize(state){
+            return state.pageSize
         }
+
 
 
     },
     mutations: {
         setCols(state, cols) {
             state.cols = cols
+            state.currentPage=1
         },
         setRows(state, rows) {
-            state.rows = rows
+            state.rows = rows 
+        },
+        setPageSize(state,value){
+            state.pageSize=value
+            state.currentPage=1
+        },
+        setCurrentPage(state,page){
+            state.currentPage=page
+        },
+        setData(state, data) {
+            state.rows = data.items
+            state.pageSize=data.page_size
+            state.totalPages=data.total_pages
+            state.currentPage=data.current_page
         },
         setErr(state, err) {
             state.err = err
@@ -44,36 +73,49 @@ const tableStore = {
         setIsLoading(state, etat) {
             state.isLoading = etat
         },
-        setFilterChamp(state, champ) {
-            state.filterChamp = champ
-        },
+
         setPath(state, path) {
             state.path = path
         },
-        setOrderBy(state,orderBy){
-            state.orderBy=orderBy
-            this.commit('table/setFilterValue',state.filterValue)
+        setOrderBy(state, orderBy) {
+            state.orderBy = orderBy
+
         },
-        setFilterValue(state, value) {
-            state.filterValue = value
-            const payload = {
+        loadData(state){
+            const payload={
                 "data": {
-                    "champ": state.filterChamp,
-                    "value": state.filterValue,
-                    "orderBy":state.orderBy
+                    "current_page": state.currentPage,
+                    "page_size": state.pageSize,
+                    "filter": state.filter,
+                    "orderBy": state.orderBy
                 },
                 "methode": "post",
                 "path": state.path
             }
-
             this.dispatch('table/loadData', payload)
         },
-        clearFilter(state){
-            state.filterChamp=''
-            state.filterValue=''
+        addFilter(state, item) {
+            let notExist = true
+            state.filter.forEach(e => {
+                if (item['champ'] == e['champ']) {
+                    notExist = false
+                    e['value'] = item['value']
+                    e['op'] = item['op']
+                    e['champ']=item['champ']
+                }
+            });
+            if (notExist) {
+                state.filter.push(item)
+            }
+            this.commit('table/loadData')
+        },
+
+        clearFilter(state) {
+            state.filter = {}
         }
     },
     actions: {
+
         async loadData({ commit }, payload) {
             commit('setIsLoading', true)
             const config = {
@@ -86,11 +128,11 @@ const tableStore = {
 
                 if (payload.methode == "post") {
                     const response = await Api.post(payload.path, payload.data, config)
-                    commit('setCols', response.data)
+                    commit('setData', response.data)
                 }
                 else {
                     const response = await Api.get(payload.path, config)
-                    commit('setCols', response.data)
+                    commit('setRows', response.data)
                 }
             } catch (err) {
                 commit('setErr', err)

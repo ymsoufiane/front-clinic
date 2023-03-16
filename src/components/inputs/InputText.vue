@@ -8,7 +8,7 @@
                 <input :class="placeholderColor" :name="input['name']" :value="input['value']" class="px-4 outline-none w-full text-base text-[#000000de] font-light"
                 :type="input['type']" :placeholder="input['placeholder']" @input="handleInput">
             </div>
-            <div class="w-min px-4 content-center flex ">
+            <div class="w-min px-4 content-center flex " v-if="input['icon']!=null">
                 <slot name="icon"></slot>
             </div>
             
