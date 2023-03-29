@@ -60,7 +60,7 @@ export default {
             if (this.currentMax <= this.currentPage) {
                 let max = this.currentMax + 5
                 return max > this.totalPages ? this.totalPages : max
-            }if(this.currentMax>this.totalPages){
+            }else if(this.currentMax>this.totalPages){
                 return this.totalPages
             }
             return this.currentMax

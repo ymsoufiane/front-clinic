@@ -1,8 +1,6 @@
 <template>
-    <div class="overflow-y-auto h-screen bg-[#0f172a]">
-        <!-- <div class="aside-head h-[250px] bg-black">
-            user info 
-        </div> -->
+    <div class="overflow-y-auto h-full bg-[#0f172a]">
+
         <div class="body py-4">
             <AsideGroupItem v-for="(group, index) in groups" :group="group" :groupIndex="index" :key="index" />
         </div>
@@ -22,7 +20,6 @@ export default {
     },
     computed:{
         groups(){
-            console.log("computed")
             return store.getters["aside/getGroups"]
         }
     },

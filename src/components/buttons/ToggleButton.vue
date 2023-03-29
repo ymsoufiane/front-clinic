@@ -1,9 +1,9 @@
-<template>
+<template >
   <div class="flex items-center justify-center">
     <label :for="getCheckBoxId" class="flex items-center cursor-pointer">
       <div class="relative">
         <!-- Input -->
-        <input :id="getCheckBoxId" type="checkbox" class="sr-only" :checked="isChecked" @change="toggleSwitch" />
+        <input :id="getCheckBoxId" type="checkbox" class="sr-only"  :checked="isChecked" @change="toggleSwitch" />
 
         <!-- Switch -->
         <div :class="getColor" class="w-10 h-4  rounded-full shadow-inner"></div>
@@ -40,6 +40,7 @@ export default {
     }
   },
   methods: {
+
     toggleSwitch() {
       this.isChecked = !this.isChecked;
     },

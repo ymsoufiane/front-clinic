@@ -65,7 +65,6 @@ export default {
             }
             
             this.err=await userApi.login(user)
-            console.log(this.err)
             
          
         }

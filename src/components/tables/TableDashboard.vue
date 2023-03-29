@@ -9,16 +9,17 @@
                     <div class="flex">
                         {{ column['name'] }}
                         <DownIcon stroke="#64748b" fill="#64748b" width="20px" v-if="showIconOrderBy(column) == 'DSC'" />
-                        <UpIcon stroke="#64748b"  width="20px" v-if="showIconOrderBy(column) == 'ASC'" />
+                        <UpIcon stroke="#64748b" width="20px" v-if="showIconOrderBy(column) == 'ASC'" />
                     </div>
 
                 </th>
             </tr>
         </thead>
         <tbody class="bg-white">
-            <tr class="border-b" >
+            <tr class="border-b">
                 <td class="p-2 text-sm" v-for="(column, columnIndex) in columns" :key="columnIndex">
-                    <GenericInput @change="filter($event)" v-if="column['filter']['type']!=null" :input="column['filter']" />
+                    <GenericInput @changeValueInput="filter($event, column['filter'])" v-if="column['filter']['type'] != null"
+                        :input="column['filter']" />
                 </td>
             </tr>
 
@@ -28,12 +29,12 @@
                         {{ row[column['champ']] }}
                     </span>
                     <div class="flex" v-else-if="column['type'] == 'action'">
-                        <div class="w-min" v-for="(action, index) in column['actions']" @click="runAction(action, row)"
+                        <div class="w-min" v-for="(action, index) in column['actions']" 
                             :key="index">
-                            <EditIcon v-if="action['name'] == 'edit'" class="icon-form cursor-pointer m-0" />
-                            <DeleteIcon v-if="action['name'] == 'delete'" class="icon-form cursor-pointer m-0 fill-white" />
+                            <EditIcon @click="runAction(action, row)" v-if="action['name'] == 'edit'" class="icon-form cursor-pointer m-0" />
+                            <DeleteIcon @click="runAction(action, row)"  v-if="action['name'] == 'delete'" class="icon-form cursor-pointer m-0 fill-white" />
                             <div v-if="action['name'] == 'toggle'">
-                                <ToggleButton :value="row[action['champ']]" :id="row[action['id']]" />
+                                <ToggleButton @change="runAction(action, row)" :value="row[action['champ']]" :id="row[action['id']]" />
                             </div>
                         </div>
                     </div>
@@ -64,39 +65,38 @@ import GenericInput from '../inputs/GenericInput.vue';
 export default {
 
     name: 'TableDahboard',
-    components: { EditIcon, DeleteIcon, ToggleButton, InputSearchTables, DownIcon,UpIcon,GenericInput,PaginationComponent },
+    components: { EditIcon, DeleteIcon, ToggleButton, InputSearchTables, DownIcon, UpIcon, GenericInput, PaginationComponent },
     data: function () {
         return {
-          
+
         }
     },
-    computed:{
-        totalItems(){
-            return this.$store.getters['table/getTotalPages']*this.itemsPerPage
+    computed: {
+        totalItems() {
+            return this.$store.getters['table/getTotalPages'] * this.itemsPerPage
         },
-        currentPage(){
-            
+        currentPage() {
+
             return this.$store.getters['table/getCurrentPage']
         },
-        itemsPerPage(){
+        itemsPerPage() {
             return this.$store.getters['table/getPageSize']
         }
     },
     methods: {
         onPageChanged(page) {
-            this.$store.commit('table/setCurrentPage',page)
+            this.$store.commit('table/setCurrentPage', page)
             this.$store.commit('table/loadData')
         },
         runAction(action, row) {
-            const payload = new Map()
-            payload.set("data", row)
+            row['data'] = action['data']
             if (action['type'] == 'mutation') {
-                this.$store.commit(action['method'], payload)
+                this.$store.commit(action['method'], row)
             } else if (action['type'] == 'action') {
-                this.$store.dispatch(action['method'], payload)
+                this.$store.dispatch(action['method'], row)
             }
         },
-        
+
         orderBy(column) {
             const currentOrderByColumn = this.$store.getters['table/getOrderBy']
             const payload = {}
@@ -108,13 +108,17 @@ export default {
             }
             this.$store.commit('table/setOrderBy', payload)
         },
-        filter(event){
+        filter(event, filter) {
 
-            const payload={
-                "value":event['value'],
-                "champ":event['input']['champ'],
-                "op":event['input']['op']
+            const payload = {
+                "value": event['value'],
+                "champ": event['input']['champ'],
+                "op": event['input']['op']
             }
+
+            if (filter['type'] == 'select')
+                payload['value'] = event['value']['value']
+
             this.$store.commit('table/addFilter', payload)
 
         },
@@ -155,7 +159,8 @@ export default {
         tableClass: {
             type: String
         },
-    }
+    },
+   
 }
 </script>
   

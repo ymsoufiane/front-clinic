@@ -1,5 +1,5 @@
 <template>
-   <div class="grid grid-cols-3 h-full">
+   <div class="grid grid-cols-3 h-16">
         <div class="col-span-1 grid content-center h-full px-4">
             <MenuIcon @click="changeEtat" class="cursor-pointer" width="25px" height="25px" fill="#64748b" />
         </div>

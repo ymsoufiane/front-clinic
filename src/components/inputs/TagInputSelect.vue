@@ -3,12 +3,12 @@
         <div v-if="selectedTags.length > 0" class="tags">
             <div class="tag" v-for="(tag, index) in selectedTags" :key="index">
                 {{ tag['name'] }}
-                <button class="remove-tag" @click="removeTag(index)">x</button>
+                <span class="remove-tag" @click="removeTag(index)">x</span>
             </div>
         </div>
         <input type="text" :placeholder="placeholder"
             class="input-tag px-4 outline-none rounded py-2 border-[#e4e4f3] border-2" v-model="newTag"
-            @focus="changeEtatShow" @keydown.enter="addTag" @keydown.delete="deleteTag" />
+            @focus="changeEtatShow" @keydown.delete="deleteTag" />
         <div class="relative w-full z-30">
             <ul class="options absolute" v-if="showOptions">
                 <li v-for="(option, index) in filteredOptions" :key="index" @click="selectTag(option)">
@@ -22,29 +22,48 @@
 <script>
 
 export default {
+    created() {
 
+    },
+    mounted(){
+        this.selectedTags.forEach((item)=>{
+            this.values.push(item['value'])
+        })
+   
+    },
     props: {
-        options: {
-            type: Array,
-            required: false,
-        },
-        placeholder: {
-            require: "true"
-        },
-        value: {
-            require: false
+        input: {
+            required: true
         }
     },
     data() {
         return {
-
-            selectedTags: (this.value ? this.value : []),
+            selectedTags: (this.input['value'] ? this.input['value'] : []),
+            values: [],
             newTag: "",
             showOptions: false,
-            selectOptions: this.options
+            selectOptions: this.input['options']
         };
     },
+    watch:{
+        value(newValue){
+            if(newValue)
+                this.selectedTags=newValue
+            else
+                this.selectedTags=[]
+        }
+    },
     computed: {
+        value(){
+            return this.input['value']
+        },
+        placeholder() {
+            return this.input['placeholder']
+        },
+        options() {
+            return this.input['options']
+        },
+
         filteredOptions() {
             return this.options.filter((option) =>
                 option['name'].toLowerCase().includes(this.newTag.toLowerCase())
@@ -54,16 +73,12 @@ export default {
     },
 
     methods: {
-        addTag() {
-            if (this.newTag && !this.selectedTags.includes(this.newTag)) {
-                this.selectedTags.push(this.newTag);
-                this.$emit('change', this.selectedTags)
-                this.newTag = "";
-            }
-        },
+
         removeTag(index) {
+
             this.selectedTags.splice(index, 1);
-            this.$emit('change', this.selectedTags)
+            this.values.splice(index, 1)
+            this.$emit('changeValue', this.values)
         },
         deleteTag() {
             if (this.newTag === "") {
@@ -71,15 +86,16 @@ export default {
             }
         },
         selectTag(tag) {
-
             this.selectedTags.push(tag);
-            this.$emit('change', this.selectedTags)
+            this.values.push(tag['value'])
+            this.$emit('changeValue', this.values)
             this.newTag = "";
             this.showOptions = false;
         },
         changeEtatShow() {
             this.showOptions = !this.showOptions
-        }
+        },
+
     },
 };
 </script>

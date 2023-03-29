@@ -6,6 +6,7 @@ import ListRoles from './pages/listRoles/ListRoles'
 import ListAdmin from './pages/listAdmin/ListAdmin'
 import EditAdmin from './pages/editAdmin/EditAdmin'
 
+
 const routes = [
   {
     path: '/add/admin',
@@ -42,6 +43,7 @@ const routes = [
     name: 'listAdmin',
     parent:'dashboard',
     component: ListAdmin
+
   },
   {
     path: '/login',

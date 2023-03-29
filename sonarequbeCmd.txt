@@ -1,0 +1,1 @@
+sonar-scanner.bat -D"sonar.projectKey=vue_dashboard" -D"sonar.sources=." -D"sonar.host.url=http://localhost:9000" -D"sonar.login=sqp_7938952b0fc1d1699feea9a42bf840431fc27e39"

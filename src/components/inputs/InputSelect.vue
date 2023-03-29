@@ -19,29 +19,28 @@
 <script>
 import DownIcon from '../icons/DownIcon.vue';
 export default {
-    components:{DownIcon},
+    components: { DownIcon },
     props: {
-        options: {
-            type: Array,
-            required: false,
-        },
-        placeholder: {
-            require: "true"
-        },
-        value: {
-            require: false
+        input: {
+            require: true
         }
+
     },
     data() {
         return {
 
-            selectedOption: (this.value ? this.value : {}),
-
+            selectedOption: (this.input['value'] ? this.input['value'] : {}),
             showOptions: false,
-            selectOptions: this.options
+            selectOptions: this.input['options']
         };
     },
     computed: {
+        placeholder() {
+            return this.input['placeholder']
+        },
+        options() {
+            return this.input['options']
+        },
         filteredOptions() {
             return this.options.filter((option) =>
                 option['name'].toLowerCase()
@@ -52,9 +51,9 @@ export default {
     methods: {
 
         selectOption(opt) {
-            
+
             this.selectedOption = opt;
-            this.$emit('change', opt)
+            this.$emit('changeValue', opt)
             this.showOptions = false;
         },
         changeEtatShow() {

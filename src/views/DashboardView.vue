@@ -1,11 +1,11 @@
 <template>
-    <div class="grid lg:grid-cols-5 md:grid-cols-10 sm:grid-cols-8 ">
+    <div class="min-h-screen  bg-[#f1f5f9] h-full grid lg:grid-cols-5 md:grid-cols-10 sm:grid-cols-8 ">
         <div v-if="isOpen" class="lg:col-span-1 md:col-span-3 sm:col-span-3 ">
             <AsideDashboard />
         </div>
-        <div :class="getClassMain" class="border-[#e8e8e8] border-b-2  h-16">
-            <NavDahboard />
-            <div class="main bg-[#f1f5f9] h-screen p-8">
+        <div :class="getClassMain" class="border-[#e8e8e8] border-b-2">
+            <NavDahboard class="bg-white" />
+            <div class=" p-8 ">
                 <div v-if="showDashboard">
                     dashboard
                 </div>

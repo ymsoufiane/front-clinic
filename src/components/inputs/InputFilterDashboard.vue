@@ -3,7 +3,6 @@
         <div class="bg-white shadow-md rounded-md w-52 ">
             <select @change="selectItem($event)"
                 class="w-full text-[#64748b] py-2 px-4 outline-none border-none focus:border-none focus:outline-none" name="" id="">
-                
                 <option v-for="(item, index) in filter.items" :key="index" :value="item['champ']">{{ item['name'] }}
                 </option>
             </select>

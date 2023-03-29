@@ -1,6 +1,6 @@
 <template>
     <div class="py-2">
-        <div class="title py text-[#1e293b] text-sm">
+        <div class="title py  text-sm" :class="colorTitle" >
             {{input['title']}}
         </div>
         <div :class="colorBorder" class="rounded py-2 flex">
@@ -27,13 +27,16 @@ export default {
 
     methods: {
         handleInput(e) {
-            this.$emit('input', e)
+            this.$emit('changeValue', e)
         },
     },
     computed: {
 
         colorBorder() {
-            return this.input['err'] != "" && this.input['err'] == null ? "border-[#e4e4f3] border-2" : "border-[#ef4444] border-b-[1px]"
+            return this.input['err'] != "" && this.input['err'] == null ? "border-[#e4e4f3] border-2" : "border-[#ef4444] border-[1px]"
+        },
+        colorTitle(){
+            return this.input['err'] != "" && this.input['err'] == null ? "text-[#1e293b]":"text-[#ef4444]"
         },
 
         placeholderColor() {
