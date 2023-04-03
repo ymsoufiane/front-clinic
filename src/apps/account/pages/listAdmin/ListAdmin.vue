@@ -8,9 +8,8 @@ export default {
     name: "ListAdmin",
     components: { TableDashboard },
     mounted() {
-
+        console.log("mounted list Admin")
         this.$store.commit('table/setPath', "user/users")
-        this.$store.commit('table/loadData')
     },
     data: function () {
         return {
@@ -20,7 +19,6 @@ export default {
     computed: {
 
         getColsName() {
-
             return [
                 {
                     'name': "First Name", 'champ': 'firstName', 'type': "text",
@@ -123,9 +121,7 @@ export default {
     },
 
     methods: {
-        onPageChanged(page) {
-            this.currentPage = page
-        }
+       
     }
 }
 

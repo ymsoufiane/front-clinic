@@ -8,7 +8,8 @@ export default {
             const response = await Api.post('/user/login', user)
             const token = response.data.Token
             localStorage.setItem('token', token)
-            store.commit("user/setToken", token)
+            localStorage.setItem('username',user['username'])
+            store.commit("user/setToken", token)    
             router.push("/dashboard")
             return {}
         } catch (err) {

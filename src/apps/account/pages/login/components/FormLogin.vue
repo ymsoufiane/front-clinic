@@ -1,16 +1,19 @@
 <template>
     <div class="grid ">
-        <form @submit="login" class="" action="">
+        <loading v-if="isLoading" :isLoading="isLoading"></loading>
+        <form  @submit="login" class="" action="">
             <slot></slot>
-           
-            <InputForm v-model="username" :err="err.username" @input="e => username = e.target.value" type="text" placeholder="Username">
+
+            <InputForm v-model="username" :err="err.username" @input="e => username = e.target.value" type="text"
+                placeholder="Username">
                 <template v-slot:icon>
                     <UserIcon class="w-[20px] fill-[#e4e4f3] inline" />
                 </template>
 
             </InputForm>
-            
-            <InputForm v-model="password" :err="err.password" type="password" @input="e => password = e.target.value" placeholder="Password">
+
+            <InputForm v-model="password" :err="err.password" type="password" @input="e => password = e.target.value"
+                placeholder="Password">
                 <template v-slot:icon>
                     <PasswordIcon class="w-[20px] fill-[#e4e4f3] inline" />
                 </template>
@@ -42,31 +45,34 @@ import InputForm from './InputForm.vue';
 import PasswordIcon from '@/components/icons/PasswordIcon.vue';
 import SubmitButton from '@/components/buttons/SubmitButton.vue';
 import userApi from '@/apps/account/api/user.js';
+import Loading from '@/components/general/Laoding.vue';
+
 export default {
     name: 'FormLogin',
-    components: { UserIcon, InputForm, PasswordIcon, SubmitButton },
+    components: { UserIcon, InputForm, PasswordIcon, SubmitButton, Loading },
     data() {
         return {
             password: "",
             username: "",
-            errPassword:"",
-            errUsername:"",
+            errPassword: "",
+            errUsername: "",
             isChecked: false,
-            err:{}
+            err: {},
+            isLoading: false,
         }
     },
     methods: {
-        async login (e) {
+        async login(e) {
             e.preventDefault()
-            const user={
-                "username":this.username,
-                "password":this.password,
-                "remember":this.isChecked
+            this.isLoading = true;
+            const user = {
+                "username": this.username,
+                "password": this.password,
+                "remember": this.isChecked
             }
-            
-            this.err=await userApi.login(user)
-            
-         
+            this.err = await userApi.login(user)
+            this.isLoading = false
+
         }
     }
 

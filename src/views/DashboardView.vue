@@ -1,11 +1,13 @@
 <template>
-    <div class="min-h-screen  bg-[#f1f5f9] h-full grid lg:grid-cols-5 md:grid-cols-10 sm:grid-cols-8 ">
+    
+    <div  class="min-h-screen  bg-[#f1f5f9] h-full grid lg:grid-cols-5 md:grid-cols-10 sm:grid-cols-8 ">
         <div v-if="isOpen" class="lg:col-span-1 md:col-span-3 sm:col-span-3 ">
             <AsideDashboard />
         </div>
         <div :class="getClassMain" class="border-[#e8e8e8] border-b-2">
             <NavDahboard class="bg-white" />
-            <div class=" p-8 ">
+            <loading v-show="isLoading" :isLoading="isLoading"></loading>
+            <div :v-show="!isLoading" class=" p-8 ">
                 <div v-if="showDashboard">
                     dashboard
                 </div>
@@ -17,10 +19,10 @@
 <script>
 import AsideDashboard from '../components/aside/AsideDashboard.vue'
 import NavDahboard from '../components/nav/NavDahboard.vue';
-
+import Loading from '@/components/general/Laoding.vue';
 export default {
     name: 'DashboardVue',
-    components: { NavDahboard, AsideDashboard },
+    components: {Loading, NavDahboard, AsideDashboard },
     computed:{
         isOpen(){
             return this.$store.getters["aside/getEtat"]
@@ -35,7 +37,11 @@ export default {
         },
         showDashboard(){
             return this.$route.path=="/dashboard"
-        }   
+        },
+        isLoading(){
+            return this.$store.getters['table/isLoading']
+        }
+
     }
 
 }

@@ -29,6 +29,9 @@ export default {
   },
   props: ['id','value'],
   computed: {
+    getValue(){
+      return this.value
+    },
     getColor() {
       if (this.isChecked) {
         return "bg-[#4f46e5]"
@@ -39,6 +42,11 @@ export default {
       return "toggle" + this.id
     }
   },
+  watch:{
+        value(newValue){
+            this.isChecked=newValue
+        }
+    },
   methods: {
 
     toggleSwitch() {

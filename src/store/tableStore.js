@@ -5,12 +5,12 @@ const tableStore = {
     state() {
         return {
             rows: [],
-            cols: [],
             isLoading: false,
             orderBy: {},
             methode: '',
             path: '',
             filter: [],
+            customFilter:{},
             pageSize: 10,
             currentPage: 1,
             totalPages: 1,
@@ -22,10 +22,9 @@ const tableStore = {
         getRows(state) {
             return state.rows
         },
-        getCols(state) {
-            return state.cols
-        },
+
         isLoading(state) {
+            
             return state.isLoading
         },
         getOrderBy(state) {
@@ -49,10 +48,7 @@ const tableStore = {
 
     },
     mutations: {
-        setCols(state, cols) {
-            state.cols = cols
-            state.currentPage = 1
-        },
+
         setRows(state, rows) {
             state.rows = rows
         },
@@ -84,10 +80,15 @@ const tableStore = {
         setPath(state, path) {
             state.rows = []
             state.filter = []
+            state.orderBy={}
             state.path = path
+            state.search=""
+            state.customFilter={}
+            this.commit('table/loadData')
         },
         setOrderBy(state, orderBy) {
             state.orderBy = orderBy
+            this.commit('table/loadData')
         },
         setSearch(state, word) {
             state.search = word
@@ -99,8 +100,9 @@ const tableStore = {
                     "current_page": state.currentPage,
                     "page_size": state.pageSize,
                     "filter": state.filter,
-                    "orderBy": state.orderBy,
-                    "search": state.search
+                    "orderBy":(state.orderBy['name']!=undefined)?state.orderBy['name']+" "+state.orderBy['order']:"",
+                    "search": state.search,
+                    "customFilter":state.customFilter
                 },
                 "methode": "post",
                 "path": state.path
@@ -122,14 +124,19 @@ const tableStore = {
 
             this.commit('table/loadData')
         },
+        addCustomFilter(state,item){
+            state.customFilter[item['champ']]=item['value']
+            this.commit('table/loadData')
+        },
         exportData(state, payload) {
             const data = {
                 "data": {
                     "current_page": state.currentPage,
                     "page_size": state.pageSize,
                     "filter": state.filter,
-                    "orderBy": state.orderBy,
-                    "search": state.search
+                    "orderBy": state.orderBy['name']+" "+state.orderBy['order'],
+                    "search": state.search,
+                    "customFilter":state.customFilter
                 },
 
                 "path": "user/export/" + payload['type'],
@@ -166,13 +173,12 @@ const tableStore = {
             }
         },
         async loadData({ commit }, payload) {
-
             commit('setIsLoading', true)
             try {
 
                 if (payload.methode == "post") {
-                    const response = await Api.post(payload.path, payload.data)
-                    commit('setData', response.data)
+                     const response = await Api.post(payload.path, payload.data)
+                     commit('setData', response.data)
                 }
                 else {
                     const response = await Api.get(payload.path)
@@ -187,8 +193,7 @@ const tableStore = {
         },
 
         async updateEtat(obj, payload) {
-            console.log("payload etat")
-            console.log(payload)
+
             try {
                 await Api.post(payload['data']['path']+"/"+payload['ID'], )
             } catch (error) {

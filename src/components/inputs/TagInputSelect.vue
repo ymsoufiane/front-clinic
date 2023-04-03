@@ -29,6 +29,8 @@ export default {
         this.selectedTags.forEach((item)=>{
             this.values.push(item['value'])
         })
+        if(this.selectedTags.length>0)
+        this.$emit('changeValue', this.values)
    
     },
     props: {

@@ -11,9 +11,7 @@ export default {
     name: "ListRoles",
     components: { TableDashboard },
     mounted() {
-
         this.$store.commit('table/setPath', "role/roles")
-        this.$store.commit('table/loadData')
     },
     data: function () {
         return {
@@ -22,13 +20,16 @@ export default {
     computed: {
         getRows() {
             let roles = this.$store.getters['table/getRows']
-            roles.forEach((role) => {
-                if (typeof role['priviliges'] != "string") {
-                    role['backupPriviliges'] = role['priviliges']
-                    role['priviliges'] = this.parsePriviliges(role['priviliges'])
-                }
+            if (roles != null)
+                roles.forEach((role) => {
+                    if (typeof role['priviliges'] != "string") {
+                        role['backupPriviliges'] = role['priviliges']
+                        role['priviliges'] = this.parsePriviliges(role['priviliges'])
+                    }
 
-            })
+                })
+            else
+                roles = []
 
             return roles
         },

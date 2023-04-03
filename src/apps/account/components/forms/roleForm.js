@@ -33,7 +33,7 @@ const tableCols = [
         "filter": {
             "placeholder": "Role Name",
             "type": "text",
-            "champ": "role_name",
+            "champ": "roles.role_name",
             "op": "like"
         }
     },
@@ -44,7 +44,7 @@ const tableCols = [
         "filter": {
             "placeholder": "Description",
             "type": "text",
-            "champ": "description",
+            "champ": "roles.description",
             "op": "like"
         }
     },
@@ -55,7 +55,8 @@ const tableCols = [
         "filter": {
             "placeholder": "Priviliges",
             "type": "tagInput",
-            "champ": "description",
+            "champ": "priviliges",
+            "isCustomFilter":true,
             "op": "=",
             "options": optionsFilter
         },
@@ -67,7 +68,7 @@ const tableCols = [
         "filter": {
             "placeholder": "Etat",
             "type": "select",
-            "champ":"etat",
+            "champ":"roles.etat",
             "op":"=",
             "options": [
                 { "name": "enable", "value": 1 },

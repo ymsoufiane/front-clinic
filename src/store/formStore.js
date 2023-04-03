@@ -10,6 +10,7 @@ const formStore = {
     },
     mutations: {
         setInitData(state, data) {
+            console.log("init data form")
             console.log(data)
             state.initData = data
         },

@@ -1,5 +1,6 @@
 <template>
     <InputSearchTables />
+
     <table class="w-full shadow-sm rounded-xl text-start">
         <thead class="bg-[#f8f9fa]">
             <tr class="border-b">
@@ -8,8 +9,8 @@
                     class="p-2 text-xs text-start text-[#64748b] font-semibold" :key="index">
                     <div class="flex">
                         {{ column['name'] }}
-                        <DownIcon stroke="#64748b" fill="#64748b" width="20px" v-if="showIconOrderBy(column) == 'DSC'" />
-                        <UpIcon stroke="#64748b" width="20px" v-if="showIconOrderBy(column) == 'ASC'" />
+                        <DownIcon stroke="#64748b" fill="#64748b" width="20px" v-if="showIconOrderBy(column) == 'desc'" />
+                        <UpIcon stroke="#64748b" width="20px" v-if="showIconOrderBy(column) == 'asc'" />
                     </div>
 
                 </th>
@@ -68,7 +69,7 @@ export default {
     components: { EditIcon, DeleteIcon, ToggleButton, InputSearchTables, DownIcon, UpIcon, GenericInput, PaginationComponent },
     data: function () {
         return {
-
+            isLoading: true,
         }
     },
     computed: {
@@ -85,6 +86,7 @@ export default {
     },
     methods: {
         onPageChanged(page) {
+            console.log("change the page")
             this.$store.commit('table/setCurrentPage', page)
             this.$store.commit('table/loadData')
         },
@@ -98,13 +100,14 @@ export default {
         },
 
         orderBy(column) {
+            console.log("run order by in table dashboard")
             const currentOrderByColumn = this.$store.getters['table/getOrderBy']
             const payload = {}
-            payload['name'] = column['name']
-            if (currentOrderByColumn['name'] == column['name']) {
-                payload['order'] = currentOrderByColumn['order'] == 'DSC' ? 'ASC' : 'DSC'
+            payload['name'] = column['filter']['champ']
+            if (currentOrderByColumn['name'] == column['filter']['champ']) {
+                payload['order'] = currentOrderByColumn['order'] == 'desc' ? 'asc' : 'desc'
             } else {
-                payload['order'] = 'ASC'
+                payload['order'] = 'asc'
             }
             this.$store.commit('table/setOrderBy', payload)
         },
@@ -119,12 +122,15 @@ export default {
             if (filter['type'] == 'select')
                 payload['value'] = event['value']['value']
 
-            this.$store.commit('table/addFilter', payload)
+            if(filter['isCustomFilter'])
+                this.$store.commit('table/addCustomFilter', payload)
+            else
+                this.$store.commit('table/addFilter', payload)
 
         },
         showIconOrderBy(column) {
             const currentOrderByColumn = this.$store.getters['table/getOrderBy']
-            if (currentOrderByColumn['name'] == column['name']) {
+            if (currentOrderByColumn['name'] == column['champ']) {
                 return currentOrderByColumn['order']
             }
             return ''

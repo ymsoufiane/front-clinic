@@ -28,6 +28,7 @@ export default {
   components: { FormDashboard },
   methods: {
     async submit(role) {
+      console.log(role)
       try {
         await Api.post('/role/add', role)
         this.$store.commit('form/setErr', {})

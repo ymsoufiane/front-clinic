@@ -29,20 +29,9 @@ import InputSelect from './InputSelect.vue'
 
 export default {
     name: "InputFilterDashboard",
-    inject: ['filter'],
     components: { SearchIcon, InputSelect },
     mounted() {
-        if (this.haveFilter) {
-            const path = this.filter['path']
-            this.$store.commit('table/setPath', path)
-            const event = {
-                target: {
-                    value: this.filter['items'][0]['champ']
-                }
-            }
-            this.selectItem(event)
 
-        }
     },
     data: function () {
         return {
@@ -77,6 +66,7 @@ export default {
     },
     methods: {
         setPageSize(event){
+            console.log("set page size")
             this.$store.commit('table/setPageSize',event['value'])
             this.$store.commit('table/loadData')
         },

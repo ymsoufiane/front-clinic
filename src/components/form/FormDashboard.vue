@@ -54,12 +54,10 @@ export default {
     components: { GenericInput, AlertComponent },
     methods: {
         handleSubmit(event) {
-            console.log(event)
             event.preventDefault();
             this.$emit('submitForm', this.formData)
         },
         handelChange($event) {
-            
             this.formData[$event['input']['name']] = $event['value']
         },
 
@@ -68,7 +66,6 @@ export default {
         errForm(newErr) {
             this.inputs.forEach(input => {
                 input['err'] = newErr[input['name']]
-                input['value'] = this.formData[input['name']]
             });
 
         },
@@ -85,7 +82,6 @@ export default {
 
     computed: {
         initData() {
-            
             return this.$store.getters['form/getInitData']
         },
         errForm() {
