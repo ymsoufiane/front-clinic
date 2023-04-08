@@ -6,23 +6,39 @@
 import FormDashboard from '@/components/form/FormDashboard.vue';
 import adminForm from '../../components/forms/adminForm';
 import Api from '@/api';
+import userApi from "@/apps/account/api/user";
 import error_parse from '@/api/error_parse';
 export default {
 
     name: 'EditAdmin',
     components: { FormDashboard },
     created() {
-
         this.inputs.forEach(input => {
             if (input['name'] == 'submit') {
                 input['text'] = "Update Admin"
             }
         });
+
+    },
+    async mounted() {
+        let userId = this.$route.params.id
+        try {
+            let user = await userApi.getUser(userId)
+            let options = []
+            user['roles'].forEach(role => {
+                options.push({ "name": role['roleName'], "value": { "ID": role['ID'] } })
+            });
+            user['roles'] = options
+            this.$store.commit('form/setInitData', user)
+        } catch (error) {
+            console.log(error)
+        }
+
     },
     data: function () {
 
         return {
-            alertInfo:{},
+            alertInfo: {},
             inputs: [...adminForm]
         }
     },
@@ -31,7 +47,7 @@ export default {
     methods: {
         async submit(user) {
             try {
-                await Api.post('/user/update/'+user['ID'], user)
+                await Api.post('/user/update/' + user['ID'], user)
                 this.$store.commit('form/setErr', {})
                 this.$store.commit("form/clearForm")
                 this.alertInfo = {

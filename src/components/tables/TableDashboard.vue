@@ -86,7 +86,6 @@ export default {
     },
     methods: {
         onPageChanged(page) {
-            console.log("change the page")
             this.$store.commit('table/setCurrentPage', page)
             this.$store.commit('table/loadData')
         },
@@ -100,7 +99,6 @@ export default {
         },
 
         orderBy(column) {
-            console.log("run order by in table dashboard")
             const currentOrderByColumn = this.$store.getters['table/getOrderBy']
             const payload = {}
             payload['name'] = column['filter']['champ']

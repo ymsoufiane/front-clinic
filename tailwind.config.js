@@ -3,9 +3,8 @@ module.exports = {
   content: ['./public/**/*.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
   theme: {
     extend: {
-      backgroundImage: {
-        
-        
+      gridTemplateColumns: {
+        '20': 'repeat(20, minmax(0, 1fr))',
       }
     },
   },

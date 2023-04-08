@@ -14,7 +14,8 @@ const tableStore = {
             pageSize: 10,
             currentPage: 1,
             totalPages: 1,
-            search: ""
+            search: "",
+            pathExportData:""
 
         }
     },
@@ -59,6 +60,9 @@ const tableStore = {
         },
         setCurrentPage(state, page) {
             state.currentPage = page
+        },
+        setPathExportData(state,path){
+            state.pathExportData=path
         },
         setData(state, data) {
             state.rows = data.items
@@ -139,7 +143,7 @@ const tableStore = {
                     "customFilter":state.customFilter
                 },
 
-                "path": "user/export/" + payload['type'],
+                "path":state.pathExportData+payload['type'],
                 "fileName": payload['fileName']
             }
             this.dispatch('table/exportData', data)

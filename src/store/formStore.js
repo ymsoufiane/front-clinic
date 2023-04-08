@@ -10,8 +10,6 @@ const formStore = {
     },
     mutations: {
         setInitData(state, data) {
-            console.log("init data form")
-            console.log(data)
             state.initData = data
         },
         setErr(state,newErr){
@@ -20,7 +18,8 @@ const formStore = {
         clearForm(state){
             state.initData={}
             state.err={}
-            state.clearForm=true
+            state.clearForm=!state.clearForm
+
         },
         changeEtat(state){
             state.clearForm=!state.clearForm

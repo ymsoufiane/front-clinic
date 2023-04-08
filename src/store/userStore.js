@@ -12,8 +12,7 @@ const userStore = {
       state.token = token
     },
     updateAdmin(state,payload){
-      this.commit('form/setInitData',payload)
-      router.push("/edit/admin")
+      router.push("/edit/admin/"+payload['ID'])
     },
     deleteUser(state,payload){
       this.commit('table/deleteRow',payload)
@@ -21,17 +20,6 @@ const userStore = {
 
   },
   actions:{
-   
-    async updateAdmin({commit},payload){
-      let data=await userApi.getUser(payload['ID'])
-      let options=[]
-      data['roles'].forEach(role => {
-        options.push({"name":role['roleName'],"value":{"ID":role['ID']}})
-      });
-      data['roles']=options
-      commit("updateAdmin",data)
-    },
-
    async  deleteUser({commit},payload){
       userApi.deleteUser(payload['ID'])
       commit('deleteUser',payload)

@@ -1,10 +1,13 @@
 <template>
-    <div class="input-select ">
+    <div class="input-select py-2">
+        <div class="title py  text-sm" :class="colorTitle">
+            {{ input['title'] }}
+        </div>
         <div @click="changeEtatShow"
             class="cursor-pointer input-tag p-2 outline-none rounded flex justify-between border-[#e4e4f3] border-2">
             <div class="text-[#00000070]" v-if="selectedOption['name'] == null">{{ placeholder }}</div>
             <div v-else>{{ selectedOption['name'] }}</div>
-            <DownIcon width="20px" stroke="#a3a3df" />
+            <DownIcon width="20px" height="23px" stroke="#a3a3df" />
         </div>
         <div class="relative w-full z-30">
             <ul class="options absolute" v-if="showOptions">
@@ -26,15 +29,27 @@ export default {
         }
 
     },
+
     data() {
         return {
-
             selectedOption: (this.input['value'] ? this.input['value'] : {}),
             showOptions: false,
             selectOptions: this.input['options']
         };
     },
+    watch: {
+        value(newValue){
+            this.selectedOption=newValue
+            this.$emit('changeValue', newValue)
+        },
+        clearForm() {
+            this.selectedOption = {}
+        }
+    },
     computed: {
+        value() {
+            return this.input['value']
+        },
         placeholder() {
             return this.input['placeholder']
         },
@@ -46,6 +61,9 @@ export default {
                 option['name'].toLowerCase()
             )
         },
+        clearForm() {
+            return this.$store.getters['form/getClearForm']
+        }
     },
 
     methods: {

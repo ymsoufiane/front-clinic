@@ -66,7 +66,6 @@ export default {
     },
     methods: {
         setPageSize(event){
-            console.log("set page size")
             this.$store.commit('table/setPageSize',event['value'])
             this.$store.commit('table/loadData')
         },

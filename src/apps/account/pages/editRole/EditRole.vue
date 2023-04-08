@@ -1,5 +1,5 @@
 <template>
-  <FormDashboard :alertInfo="alertInfo" :inputs="inputs" @submitForm="onsubmit" :initData="initData" />
+  <FormDashboard :alertInfo="alertInfo" :inputs="inputs" @submitForm="onsubmit"  />
 </template>
  
 <script>
@@ -15,7 +15,6 @@ export default {
       if (input['name'] == 'submit') {
         input['text'] = "Update Role"
       }
-
 
     });
   },

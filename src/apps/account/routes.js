@@ -15,7 +15,7 @@ const routes = [
     component: AddAdmin
   },
   {
-    path: '/edit/admin',
+    path: '/edit/admin/:id',
     name: 'editAdmin',
     parent:'dashboard',
     component: EditAdmin

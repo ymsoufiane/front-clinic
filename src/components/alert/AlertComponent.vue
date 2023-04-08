@@ -47,6 +47,9 @@ export default {
     watch:{
         initEtat(newValue){
             this.isOpen=newValue
+        },
+        message(){
+            this.isOpen=true
         }
     },
     computed: {

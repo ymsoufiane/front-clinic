@@ -22,9 +22,10 @@ export default function(err){
         });
     if(errorUniqueField!=null){
         errorUniqueField.forEach(err => {
-           result[err.Name] = err.Message
+           result[err.name] = err.message
         });
     }
     result["err"] = err.response.data.Err
+
     return result
 }

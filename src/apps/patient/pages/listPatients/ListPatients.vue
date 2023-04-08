@@ -5,11 +5,11 @@
 <script>
 import TableDashboard from '@/components/tables/TableDashboard.vue'
 export default {
-    name: "ListAdmin",
+    name: "ListPatients",
     components: { TableDashboard },
     mounted() {
-        this.$store.commit('table/setPath', "user/users")
-        this.$store.commit('table/setPathExportData',"user/export/")
+        this.$store.commit('table/setPath', "patient/patients")
+        this.$store.commit('table/setPathExportData',"patient/export/")
     },
     data: function () {
         return {
@@ -39,15 +39,6 @@ export default {
                     }
                 },
                 {
-                    'name': "Username", 'champ': 'username', 'type': "text",
-                    "filter": {
-                        "placeholder": "Username",
-                        "type": "text",
-                        "champ": "username",
-                        "op": "like"
-                    }
-                },
-                {
                     'name': "Phone Number", 'champ': 'phoneNumber', 'type': "text",
                     "filter": {
                         "placeholder": "Phone Number",
@@ -56,8 +47,9 @@ export default {
                         "op": "like"
                     }
                 },
+
                 {
-                    'name': "E-mail ", 'champ': 'email', 'type': "text",
+                    'name': "E-mail ", 'champ': 'emailAddresse', 'type': "text",
                     "filter": {
                         "placeholder": "E-mail",
                         "type": "text",
@@ -65,30 +57,29 @@ export default {
                         "op": "like"
                     }
                 },
+                //PreferredContactMethod
                 {
-                    'name': "etat",
-                    'type': "action",
+                    'name': "Preferred Contact Method ", 'champ': 'preferredContactMethod', 'type': "text",
                     "filter": {
-                        "placeholder": "Etat",
+                        "placeholder": "Select ...",
                         "type": "select",
-                        "champ": "etat",
+                        "champ": "preferred_contact_method",
                         "op": "=",
                         "options": [
-                            { "name": "enable", "value": '1' },
-                            { "name": "disable", "value": '0' },
+                            { "name": "Phone", "value": "Phone" },
+                            { "name": "Email", "value": "Email" },
+                            { "name": "Text", "value": "Text" },
                         ]
                     },
-                    'actions': [
-                        {
-                            'name': "toggle",
-                            'type': "action",
-                            'id': 'ID',
-                            'champ': 'etat',
-                            'method': 'table/updateEtat',
-                            "data":{"path":"user/updateEtat"},
-
-                        },
-                    ]
+                },
+                {
+                    'name': "Addresse ", 'champ': 'addresse', 'type': "text",
+                    "filter": {
+                        "placeholder": "Addresse",
+                        "type": "text",
+                        "champ": "addrese",
+                        "op": "like"
+                    }
                 },
                 {
                     'name': "Action",
@@ -98,13 +89,8 @@ export default {
                         {
                             'name': 'edit',
                             'type': 'mutation',
-                            'method': 'user/updateAdmin',
+                            'method': 'patient/updatePatient',
 
-                        },
-                        {
-                            'name': 'delete',
-                            'type': 'action',
-                            'method': 'user/deleteUser',
                         },
 
                     ]
@@ -121,7 +107,7 @@ export default {
     },
 
     methods: {
-       
+
     }
 }
 

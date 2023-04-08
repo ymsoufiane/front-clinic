@@ -49,10 +49,11 @@ export default {
     },
     watch:{
         value(newValue){
-            if(newValue)
-                this.selectedTags=newValue
-            else
+            this.selectedTags=newValue
+        },
+        clearForm(){
                 this.selectedTags=[]
+                this.values=[]
         }
     },
     computed: {
@@ -64,6 +65,9 @@ export default {
         },
         options() {
             return this.input['options']
+        },
+        clearForm() {
+            return this.$store.getters['form/getClearForm']
         },
 
         filteredOptions() {

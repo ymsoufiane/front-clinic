@@ -1,8 +1,14 @@
 <template  >
-    <div v-if="input['type'] == 'tagInput'" class="col-span-full">
+
+    <div v-if="input['type'] == 'tagInput'" :class="getColSelect">
         <TagInputSelect @changeValue="handelChange($event, input)" :input="input" />
     </div>
-    <div v-else-if="input['type'] == 'select'" class="col-span-full">
+
+    <div v-else-if="input['type'] == 'sectionTitle' " :class="getColSelect">
+        <SectionTitle :isFirst="input['isFirst']"  :title="input['title']" />
+    </div>
+
+    <div v-else-if="input['type'] == 'select'" :class="getColSelect">
         <InputSelect @changeValue="handelChange($event, input)" :input="input" />
     </div>
     <div v-else-if="input['type'] == 'submit'" class="col-span-full grid lg:grid-cols-10 sm:grid-cols-4">
@@ -26,15 +32,20 @@ import DynamicComponenet from '@/components/DynamicComponenet.vue';
 import SubmitButton from '@/components/buttons/SubmitButton.vue';
 import TagInputSelect from '@/components/inputs/TagInputSelect.vue'
 import InputSelect from './InputSelect.vue';
+import SectionTitle from '@/components/general/SectionTitle.vue'
 export default {
     name: 'GenericInput',
     props: ['input'],
-    components: { InputText, SubmitButton, TagInputSelect, DynamicComponenet, InputSelect },
+    components: { InputText, SubmitButton, TagInputSelect, DynamicComponenet, InputSelect,SectionTitle },
     computed:{
         getCol(){
             if(this.input['col']) return this.input['col']
             else return ""
 
+        },
+        getColSelect(){
+            if(this.input['col']) return this.input['col']
+            else return "col-span-full"
         }
     },
     methods: {

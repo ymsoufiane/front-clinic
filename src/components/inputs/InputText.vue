@@ -35,12 +35,13 @@ export default {
         },
     },
     watch:{
-        value(newValue){
-            if(newValue)
-                this.inputValue=newValue
-            else
+        value(){
+            this.inputValue=this.value
+        },
+        clearForm(){
                 this.inputValue=""
         }
+
     },
     computed: {
         value(){
@@ -55,6 +56,9 @@ export default {
 
         placeholderColor() {
             return this.input['err'] != "" && this.input['err'] == null ? "placeholder-[#b6b6d9]" : "placeholder-[#ef446cb8]"
+        },
+        clearForm() {
+            return this.$store.getters['form/getClearForm']
         }
 
 

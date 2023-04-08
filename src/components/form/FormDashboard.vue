@@ -4,7 +4,7 @@
             <form @submit="handleSubmit">
                 <div class="grid gap-x-4 " :class="cols">
                     <template v-for="(input, index) in inputs" :key="index">
-                        <GenericInput @changeValueInput="handelChange($event)"  :input="input" />
+                        <GenericInput @changeValueInput="handelChange($event)" :input="input" />
                     </template>
                 </div>
             </form>
@@ -22,12 +22,12 @@ import AlertComponent from '@/components/alert/AlertComponent.vue';
 export default {
     name: 'FormDashboard',
     created() {
-        if(this.initData)
-            this.formData=this.initData
-        this.inputs.forEach(input => {
-            if (this.initData)
-                input['value'] = this.initData[input['name']]
-        });
+        if (this.initData) {
+            this.formData = this.initData
+            this.setInitData()
+        }
+
+
 
     },
     props: {
@@ -58,26 +58,35 @@ export default {
             this.$emit('submitForm', this.formData)
         },
         handelChange($event) {
-            this.formData[$event['input']['name']] = $event['value']
+
+            if ($event['input']['type'] == 'select') {
+                if($event['value'])
+                    this.formData[$event['input']['name']] = $event['value']['value']
+            }
+            else
+                this.formData[$event['input']['name']] = $event['value']
+
         },
+        setInitData() {
+            this.inputs.forEach(input => {
+                if (this.initData)
+                    input['value'] = this.initData[input['name']]
+            });
+        }
 
     },
     watch: {
+        initData(newValue) {
+            this.formData = newValue
+            this.setInitData()
+        },
         errForm(newErr) {
             this.inputs.forEach(input => {
                 input['err'] = newErr[input['name']]
             });
 
         },
-        clearForm(notClear) {
-            if (notClear) {
-                this.formData = {}
-                this.inputs.forEach(input => {
-                    input['value'] = null
-                });
-                this.$store.commit("form/changeEtat")
-            }
-        }
+
     },
 
     computed: {
@@ -88,15 +97,15 @@ export default {
             return this.$store.getters['form/getErr']
         },
         showAlert() {
-            if (this.alertInfo==null) return null
+            if (this.alertInfo == null) return null
             return this.alertInfo['showAlert']
         },
         messageAlert() {
-            if (this.alertInfo==null) return null
+            if (this.alertInfo == null) return null
             return this.alertInfo['message']
         },
         typeAlert() {
-            if (this.alertInfo==null) return null
+            if (this.alertInfo == null) return null
             return this.alertInfo['type']
         },
         clearForm() {
