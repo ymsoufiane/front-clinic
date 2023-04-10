@@ -3,7 +3,7 @@ const groups = [
         title: "Account",
         items: [
             {
-                "name": "Gestion Account",
+                "name": "Gestion Accounts",
                 "isActive": "active",
                 "icon":"UserIcon",
                 "link":"",
