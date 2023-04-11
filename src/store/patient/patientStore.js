@@ -1,7 +1,7 @@
 import router from "@/router";
 
 
-const roleStore = {
+const patientStore = {
   namespaced: true,
   state() {
     return {
@@ -17,4 +17,4 @@ const roleStore = {
   },
 
 }
-export default roleStore
+export default patientStore

@@ -48,7 +48,7 @@ export default {
                         {
                             'name': 'edit',
                             'type': 'mutation',
-                            'method': 'patient/updatePatient',
+                            'method': 'medication/updateMedication',
 
                         },
 

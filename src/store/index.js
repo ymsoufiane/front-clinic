@@ -1,9 +1,11 @@
 import asideStore from './asideStore'
-import userStore from './userStore'
+import userStore from './account/userStore'
 import tableStore from './tableStore'
 import formStore from './formStore';
 import roleStore from './roleStore';
-import patientStore from './patientStore';
+import patientStore from './patient/patientStore';
+import medicationStore from './patient/medicationStore'
+import allergyStore from './patient/allergyStore'
 import { createStore } from 'vuex'
 const store=createStore({
     modules:{
@@ -12,7 +14,10 @@ const store=createStore({
         role:roleStore,
         table:tableStore,
         form:formStore,
-        patient:patientStore
+        patient:patientStore,
+        medication:medicationStore,
+        allergy:allergyStore
+
     }
 })
 

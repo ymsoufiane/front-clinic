@@ -1,10 +1,13 @@
 import AddPatient from './pages/addPatient/AddPatient'
 import ListPatients from './pages/listPatients/ListPatients'
 import EditPatient from './pages/editPatient/EditPatient'
+import EditMedication from './pages/editMedication/EditMedication'
+import EditAllergy from './pages/editAllergy/EditAllergy'
 import AddAllergy from './pages/addAllergy/AddAllergy'
 import AddMedication from './pages/addMedication/AddMedication'
 import ListMedication from './pages/listMedication/ListMedication'
 import ListAllergy from './pages/listAllergy/ListAllergy'
+
 
 
 const routes = [
@@ -40,13 +43,26 @@ const routes = [
     parent:'dashboard',
     component: ListAllergy
   },
-//ListAllergy
+  {
+    path: '/edit/allergy/:id',
+    name: 'editAllergy',
+    parent:'dashboard',
+    component: EditAllergy
+  },
+
+//EditMedication
 
   {
     path: '/add/medication',
     name: 'AddMedication',
     parent:'dashboard',
     component: AddMedication
+  },
+  {
+    path: '/edit/medication/:id',
+    name: 'editMedication',
+    parent:'dashboard',
+    component: EditMedication
   },
   {
     path: '/medications',
