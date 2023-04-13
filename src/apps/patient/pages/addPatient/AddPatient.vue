@@ -1,10 +1,10 @@
 <template>
-    <FormDashboard :alertInfo="alertInfo" @submitForm="submit" cols="sm:grid-cols-10 lg:grid-cols-20" :inputs="inputs" />
+    <TabsForm :alertInfo="alertInfo"  @submitForm="submit" :groups="groups" />
   </template>
   
   <script>
-  import FormDashboard from '@/components/form/FormDashboard.vue';
   import patientForm from '../../componenets/forms/patientForm';
+  import TabsForm from '@/components/form/TabsForm.vue';
   import Api from '../../api/index';
   import error_parse from '@/api/error_parse';
   export default {
@@ -12,25 +12,23 @@
     name: 'AddPatient',
     created() {
       this.$store.commit('form/setInitData', {})
-      this.inputs.forEach(input => {
-        if (input['name'] == 'submit') {
-          input['text'] = "Add Patient"
-        }
-      });
+      let groupLength=this.groups.length-1
+      let inputLength=this.groups[groupLength].inputs.length-1
+      this.groups[groupLength].inputs[inputLength].text="Add Patient"
     
     },
     data: function () {
       return {
-        inputs: [...patientForm],
+        groups: [...patientForm],
         alertInfo:{}
       }
     },
-    components: { FormDashboard },
+    components: { TabsForm },
     methods: {
     
       async submit(patient) {
         try {
-          await Api.post('/patient/add', patient)
+          await Api.post('/patientService/patient/add', patient)
           this.$store.commit('form/setErr',{})
           this.$store.commit("form/clearForm")
           this.alertInfo={
@@ -41,6 +39,11 @@
           
         } catch (error) {
           const err=error_parse(error)
+          this.alertInfo={
+            "type":"error",
+            "showAlert":true,
+            "message":"Error: Please check all required fields. "
+          }
           this.$store.commit('form/setErr',err)
         }
   

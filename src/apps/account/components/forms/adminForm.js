@@ -1,7 +1,7 @@
 import Api from "@/api"
 let options=[]
 async function getOptions (){
-    let response=await Api.get("/role/getAll")
+    let response=await Api.get("/accountService/role/getAll")
     let roles=response.data.roles
     
     roles.forEach(role => {

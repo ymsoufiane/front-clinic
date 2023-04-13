@@ -8,8 +8,8 @@ export default {
     name: "ListAdmin",
     components: { TableDashboard },
     mounted() {
-        this.$store.commit('table/setPath', "user/users")
-        this.$store.commit('table/setPathExportData',"user/export/")
+        this.$store.commit('table/setPath', "accountService/user/users")
+        this.$store.commit('table/setPathExportData',"accountService/user/export/")
     },
     data: function () {
         return {
@@ -85,7 +85,7 @@ export default {
                             'id': 'ID',
                             'champ': 'etat',
                             'method': 'table/updateEtat',
-                            "data":{"path":"user/updateEtat"},
+                            "data":{"path":"/accountService/user/updateEtat"},
 
                         },
                     ]

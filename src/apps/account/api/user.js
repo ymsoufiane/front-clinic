@@ -5,7 +5,7 @@ import error_parse from '@/api/error_parse';
 export default {
     async login(user) {
         try {
-            const response = await Api.post('/user/login', user)
+            const response = await Api.post('/accountService/user/login', user)
             const token = response.data.Token
             localStorage.setItem('token', token)
             localStorage.setItem('username',user['username'])
@@ -19,7 +19,7 @@ export default {
     },
     async deleteUser(id){
         try {
-            const response = await Api.post('/user/delete/'+id)
+            const response = await Api.post('/accountService/user/delete/'+id)
             return response
         } catch (err) {
             return error_parse(err) 
@@ -28,7 +28,7 @@ export default {
     
     async getUser(id){
         try {
-            const response = await Api.get('/user/'+id)
+            const response = await Api.get('/accountService/user/'+id)
             return response.data.user
         } catch (err) {
             return error_parse(err) 

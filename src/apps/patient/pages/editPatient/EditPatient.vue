@@ -1,28 +1,27 @@
 <template>
-    <FormDashboard :alertInfo="alertInfo"  cols="sm:grid-cols-10 lg:grid-cols-20" :inputs="inputs" @submitForm="submit" />
+    <TabsForm :alertInfo="alertInfo"  @submitForm="submit" :groups="groups" />
 </template>
   
 <script>
-import FormDashboard from '@/components/form/FormDashboard.vue';
 import patientForm from '../../componenets/forms/patientForm';
+import TabsForm from '@/components/form/TabsForm.vue';
 import Api from '../../api/index';
 import error_parse from '@/api/error_parse';
 export default {
 
     name: 'EditPatient',
-    components: { FormDashboard },
+    components: { TabsForm },
     created() {
 
-        this.inputs.forEach(input => {
-            if (input['name'] == 'submit') {
-                input['text'] = "Update Patient"
-            }
-        });
+       let groupLength=this.groups.length-1
+       let inputLength=this.groups[groupLength].inputs.length-1
+       this.groups[groupLength].inputs[inputLength].text="Update Patient"
+
     },
    async mounted(){
         let userId=this.$route.params.id
         try {
-            let response=await Api.get('/patient/'+userId)
+            let response=await Api.get('/patientService/patient/'+userId)
             let patient=response.data
             patient['gender']={"name":patient['gender'],"value":patient['gender']}
             patient['bloodType']={"name":patient['bloodType'],"value":patient['bloodType']}
@@ -43,7 +42,7 @@ export default {
 
         return {
             alertInfo:{},
-            inputs: [...patientForm]
+            groups: [...patientForm],
         }
     },
 
@@ -51,7 +50,7 @@ export default {
     methods: {
         async submit(user) {
             try {
-                await Api.post('/patient/update', user)
+                await Api.post('/patientService/patient/update', user)
                 this.$store.commit('form/setErr', {})
                 this.$store.commit("form/clearForm")
                 this.alertInfo = {

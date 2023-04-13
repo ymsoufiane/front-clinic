@@ -2,7 +2,7 @@ import asideStore from './asideStore'
 import userStore from './account/userStore'
 import tableStore from './tableStore'
 import formStore from './formStore';
-import roleStore from './roleStore';
+import roleStore from './account/roleStore';
 import patientStore from './patient/patientStore';
 import medicationStore from './patient/medicationStore'
 import allergyStore from './patient/allergyStore'

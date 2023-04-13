@@ -20,49 +20,41 @@
 </template>
   
 <script>
-
+import inputMethods from '@/mixin/inputMethods'
 export default {
-    created() {
-
-    },
+    mixins: [inputMethods],
     mounted(){
-        this.selectedTags.forEach((item)=>{
-            this.values.push(item['value'])
-        })
-        if(this.selectedTags.length>0)
-        this.$emit('changeValue', this.values)
-   
-    },
-    props: {
-        input: {
-            required: true
+        if(this.value){
+           this.selectedTags=this.value 
+           this.updateValues()
         }
+            
     },
     data() {
         return {
-            selectedTags: (this.input['value'] ? this.input['value'] : []),
+            selectedTags: [],
             values: [],
             newTag: "",
             showOptions: false,
             selectOptions: this.input['options']
         };
     },
-    watch:{
-        value(newValue){
-            this.selectedTags=newValue
+    watch: {
+        initData(initData) {
+            if (initData[this.input['name']])
+                this.selectedTags = initData[this.input['name']]
+            else
+                this.selectedTags = []
+
+            this.updateValues() 
         },
-        clearForm(){
-                this.selectedTags=[]
-                this.values=[]
+        clearForm() {
+            this.selectedTags = []
+            this.values = []
         }
     },
     computed: {
-        value(){
-            return this.input['value']
-        },
-        placeholder() {
-            return this.input['placeholder']
-        },
+
         options() {
             return this.input['options']
         },
@@ -79,7 +71,13 @@ export default {
     },
 
     methods: {
-
+        updateValues() {
+            this.selectedTags.forEach((item) => {
+                this.values.push(item['value'])
+            })
+            if (this.selectedTags.length > 0)
+                this.$emit('changeValue', this.values)
+        },
         removeTag(index) {
 
             this.selectedTags.splice(index, 1);

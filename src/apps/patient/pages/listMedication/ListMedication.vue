@@ -8,8 +8,8 @@ export default {
     name: "ListMedications",
     components: { TableDashboard },
     mounted() {
-        this.$store.commit('table/setPath', "medication/medications")
-        this.$store.commit('table/setPathExportData',"medication/export/")
+        this.$store.commit('table/setPath', "patientService/medication/medications")
+        this.$store.commit('table/setPathExportData',"patientService/medication/export/")
     },
     data: function () {
         return {

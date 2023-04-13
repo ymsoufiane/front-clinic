@@ -22,7 +22,7 @@ export default {
    async mounted(){
         let AllergyId=this.$route.params.id
         try {
-            let response=await Api.get('/allergy/'+AllergyId)
+            let response=await Api.get('/patientService/allergy/'+AllergyId)
             let Allergy=response.data
             this.$store.commit('form/setInitData',Allergy)
             
@@ -42,7 +42,7 @@ export default {
     methods: {
         async submit(Allergy) {
             try {
-                await Api.post('/allergy/update', Allergy)
+                await Api.post('/patientService/allergy/update', Allergy)
                 this.$store.commit('form/setErr', {})
                 this.$store.commit("form/clearForm")
                 this.alertInfo = {

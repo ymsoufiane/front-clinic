@@ -47,7 +47,7 @@ export default {
     methods: {
         async submit(user) {
             try {
-                await Api.post('/user/update/' + user['ID'], user)
+                await Api.post('/accountService/user/update/' + user['ID'], user)
                 this.$store.commit('form/setErr', {})
                 this.$store.commit("form/clearForm")
                 this.alertInfo = {

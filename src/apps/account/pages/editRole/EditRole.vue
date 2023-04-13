@@ -28,7 +28,7 @@ export default {
   methods: {
     async onsubmit(role) {
       try {
-        await Api.post('/role/update/' + role['ID'], role)
+        await Api.post('/accountService/role/update/' + role['ID'], role)
         this.$store.commit('form/setErr', {})
         this.$store.commit("form/clearForm")
         this.alertInfo = {

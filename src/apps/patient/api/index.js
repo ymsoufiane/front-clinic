@@ -1,7 +1,7 @@
 import axios from 'axios'
 import store from "@/store/index.js";
 const api = axios.create({
-    baseURL:"http://localhost:8001",
+    baseURL:"http://143.244.152.204",
     timeout: 5000
 })
 

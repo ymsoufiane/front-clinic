@@ -4,7 +4,7 @@
             {{ input['title'] }}
         </div>
         <div @click="changeEtatShow"
-            class="cursor-pointer input-tag p-2 outline-none rounded flex justify-between border-[#e4e4f3] border-2">
+            class="cursor-pointer input-tag p-2 outline-none rounded flex justify-between " :class="colorBorder">
             <div class="text-[#00000070]" v-if="selectedOption['name'] == null">{{ placeholder }}</div>
             <div v-else>{{ selectedOption['name'] }}</div>
             <DownIcon width="20px" height="23px" stroke="#a3a3df" />
@@ -21,38 +21,45 @@
   
 <script>
 import DownIcon from '../icons/DownIcon.vue';
+import inputMethods from '@/mixin/inputMethods'
 export default {
     components: { DownIcon },
+    mixins:[inputMethods],
     props: {
         input: {
             require: true
         }
 
     },
-
+    mounted(){
+        if(this.value){
+            this.selectedOption=this.value
+            this.$emit('changeValue', this.selectedOption)
+        }
+            
+    },
     data() {
         return {
-            selectedOption: (this.input['value'] ? this.input['value'] : {}),
+            selectedOption: {},
             showOptions: false,
             selectOptions: this.input['options']
         };
     },
     watch: {
-        value(newValue){
-            this.selectedOption=newValue
-            this.$emit('changeValue', newValue)
+        initData(initData){
+            if(initData[this.input['name']])
+                this.selectedOption=initData[this.input['name']]
+            else
+                this.selectedOption={}
+            
+            this.$emit('changeValue', this.selectedOption)
         },
+
         clearForm() {
             this.selectedOption = {}
         }
     },
     computed: {
-        value() {
-            return this.input['value']
-        },
-        placeholder() {
-            return this.input['placeholder']
-        },
         options() {
             return this.input['options']
         },
@@ -61,9 +68,7 @@ export default {
                 option['name'].toLowerCase()
             )
         },
-        clearForm() {
-            return this.$store.getters['form/getClearForm']
-        }
+
     },
 
     methods: {

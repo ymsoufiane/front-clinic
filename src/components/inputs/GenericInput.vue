@@ -11,9 +11,9 @@
     <div v-else-if="input['type'] == 'select'" :class="getColSelect">
         <InputSelect @changeValue="handelChange($event, input)" :input="input" />
     </div>
-    <div v-else-if="input['type'] == 'submit'" class="col-span-full grid lg:grid-cols-10 sm:grid-cols-4">
+    <div v-else-if="input['type'] == 'submit'||input['type'] =='button'" class="col-span-full grid lg:grid-cols-10 sm:grid-cols-4">
         <div class="submit lg:col-span-4 lg:col-start-4 sm:col-span-2 sm:col-start-2">
-            <SubmitButton :text="input['text']" />
+            <SubmitButton :type="input['type']" :text="input['text']" />
         </div>
     </div>
 

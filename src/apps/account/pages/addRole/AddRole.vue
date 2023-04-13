@@ -29,7 +29,7 @@ export default {
   methods: {
     async submit(role) {
       try {
-        await Api.post('/role/add', role)
+        await Api.post('/accountService/role/add', role)
         this.$store.commit('form/setErr', {})
         this.$store.commit("form/clearForm")
         this.alertInfo = {

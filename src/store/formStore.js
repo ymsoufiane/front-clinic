@@ -11,6 +11,7 @@ const formStore = {
     mutations: {
         setInitData(state, data) {
             state.initData = data
+            state.err={}
         },
         setErr(state,newErr){
             state.err=newErr

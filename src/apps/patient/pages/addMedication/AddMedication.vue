@@ -30,7 +30,7 @@
     
       async submit(Medication) {
         try {
-          await Api.post('/medication/add', Medication)
+          await Api.post('/patientService/medication/add', Medication)
           this.$store.commit('form/setErr',{})
           this.$store.commit("form/clearForm")
           this.alertInfo={

@@ -2,7 +2,7 @@ import Api from "@/api"
 let optionsFilter = []
 let options =[]
 async function getOptions() {
-    let response = await Api.get("/priviliges/getAll")
+    let response = await Api.get("/accountService/priviliges/getAll")
     let priviliges = response.data.Priviliges
 
     priviliges.forEach(privilige => {
@@ -82,7 +82,7 @@ const tableCols = [
                 'id': 'ID',
                 'champ': 'etat',
                 'method': 'table/updateEtat',
-                "data":{"path":"role/updateEtat"}
+                "data":{"path":"/accountService/role/updateEtat"}
             },
         ]
     },

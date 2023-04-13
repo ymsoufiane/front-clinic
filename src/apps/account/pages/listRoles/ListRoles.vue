@@ -11,7 +11,7 @@ export default {
     name: "ListRoles",
     components: { TableDashboard },
     mounted() {
-        this.$store.commit('table/setPath', "role/roles")
+        this.$store.commit('table/setPath', "accountService/role/roles")
     },
     data: function () {
         return {

@@ -22,7 +22,7 @@ export default {
    async mounted(){
         let medicationId=this.$route.params.id
         try {
-            let response=await Api.get('/medication/'+medicationId)
+            let response=await Api.get('/patientService/medication/'+medicationId)
             let medication=response.data
             this.$store.commit('form/setInitData',medication)
             
@@ -42,7 +42,7 @@ export default {
     methods: {
         async submit(medication) {
             try {
-                await Api.post('/medication/update', medication)
+                await Api.post('/patientService/medication/update', medication)
                 this.$store.commit('form/setErr', {})
                 this.$store.commit("form/clearForm")
                 this.alertInfo = {
