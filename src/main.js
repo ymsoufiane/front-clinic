@@ -9,7 +9,8 @@ import store from './store'
 
 const INSTALLED_APPS=[
     'account',
-    'patient'
+    'patient',
+    'appointment'
 ]
 
 

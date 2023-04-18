@@ -4,16 +4,20 @@
  
 <script>
 import FormDashboard from '@/components/form/FormDashboard.vue';
-import form from '../../components/forms/roleForm';
+import role_form from '../../json/form/role_form.json';
 import Api from '@/api';
 import error_parse from '@/api/error_parse';
+import getPriviliges from '../../mixin/getPriviligesOptions';
 export default {
 
   name: 'EditRole',
+  mixins:[getPriviliges],
   created() {
-    this.inputs.forEach(input => {
+    this.inputs.forEach(async(input) => {
       if (input['name'] == 'submit') {
         input['text'] = "Update Role"
+      }else if(input['name']=='priviliges'){
+        input['options']=await this.getPriviligesFormOptions()
       }
 
     });
@@ -21,7 +25,7 @@ export default {
   data: function () {
     return {
       alertInfo:{},
-      inputs: form.roleForm
+      inputs: [...role_form],
     }
   },
   components: { FormDashboard },

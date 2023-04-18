@@ -1,0 +1,39 @@
+[
+    {
+        "name": "Allergy Name", "champ": "allergyName", "type": "text",
+        "filter": {
+            "placeholder": "Allergy Name",
+            "type": "text",
+            "champ": "allergy_name",
+            "op": "like"
+        }
+    },
+    {
+        "name": " Description", "champ": "description", "type": "text",
+        "filter": {
+            "placeholder": "Description",
+            "type": "text",
+            "champ": "description",
+            "op": "like"
+        }
+    },
+    
+   
+    {
+        "name": "Action",
+        "type": "action",
+        "filter": {},
+        "actions": [
+            {
+                "name": "edit",
+                "type": "mutation",
+                "method": "allergy/updateAllergy"
+
+            }
+
+        ]
+    }
+
+
+
+]

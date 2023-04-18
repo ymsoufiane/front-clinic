@@ -1,0 +1,19 @@
+[
+    {
+        "type": "text",
+        "name": "label",
+        "placeholder": "",
+        "title": "Prestation Categorie Name"
+    },
+    {
+        "type": "text",
+        "name": "description",
+        "placeholder": "",
+        "title": "Description"
+    },
+    {
+        "name": "submit",
+        "type": "submit",
+        "text": "Add Allergy"
+    }
+]

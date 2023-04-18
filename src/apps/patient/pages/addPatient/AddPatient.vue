@@ -3,9 +3,9 @@
   </template>
   
   <script>
-  import patientForm from '../../componenets/forms/patientForm';
+  import patientForm from '../../json/forms/patient_form.json';
   import TabsForm from '@/components/form/TabsForm.vue';
-  import Api from '../../api/index';
+  import Api from '@/api';
   import error_parse from '@/api/error_parse';
   export default {
   

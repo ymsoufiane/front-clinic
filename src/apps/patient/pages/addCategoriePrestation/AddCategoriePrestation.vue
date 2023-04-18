@@ -1,52 +1,51 @@
 <template>
-  <FormDashboard :alertInfo="alertInfo" :inputs="inputs" @submitForm="submit" />
+  <FormDashboard :alertInfo="alertInfo" @submitForm="submit" :inputs="inputs" />
 </template>
-
+  
 <script>
 import FormDashboard from '@/components/form/FormDashboard.vue';
-import role_form from '../../json/form/role_form.json';
-import getPriviliges from '../../mixin/getPriviligesOptions';
+import PrestationCategorieForm from '../../json/forms/PrestationCategorie_form.json';
 import Api from '@/api';
 import error_parse from '@/api/error_parse';
 export default {
-  name: 'AddRole',
-  mixins:[getPriviliges],
+
+  name: 'AddPrestationCategorie',
   created() {
     this.$store.commit('form/setInitData', {})
-    this.inputs.forEach(async (input) => {
+    this.inputs.forEach(input => {
       if (input['name'] == 'submit') {
-        input['text'] = "Add Role"
-      }else if(input['name']=='priviliges'){
-        console.log("success")
-        input['options']=await this.getPriviligesFormOptions()
+        input['text'] = "Add Prestation Categorie"
       }
     });
 
   },
   data: function () {
     return {
-      inputs: [...role_form],
+      inputs: [...PrestationCategorieForm],
       alertInfo: {}
     }
   },
   components: { FormDashboard },
   methods: {
-    async submit(role) {
+
+    async submit(PrestationCategorie) {
       try {
-        await Api.post('/accountService/role/add', role)
+        await Api.post('/patientService/prestationCategorie/add', PrestationCategorie)
         this.$store.commit('form/setErr', {})
         this.$store.commit("form/clearForm")
         this.alertInfo = {
           "type": "success",
           "showAlert": true,
-          "message": "success add role " + role['roleName']
+          "message": "success add prestation categorie " + PrestationCategorie['label']
         }
 
       } catch (error) {
         const err = error_parse(error)
         this.$store.commit('form/setErr', err)
       }
+
     }
   }
 }
 </script>
+  

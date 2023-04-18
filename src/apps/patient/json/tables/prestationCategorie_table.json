@@ -1,0 +1,39 @@
+[
+    {
+        "name": "Prestation Categorie Name", "champ": "label", "type": "text",
+        "filter": {
+            "placeholder": "Prestation Categorie Name",
+            "type": "text",
+            "champ": "label",
+            "op": "like"
+        }
+    },
+    {
+        "name": " Description", "champ": "description", "type": "text",
+        "filter": {
+            "placeholder": "Description",
+            "type": "text",
+            "champ": "description",
+            "op": "like"
+        }
+    },
+    
+   
+    {
+        "name": "Action",
+        "type": "action",
+        "filter": {},
+        "actions": [
+            {
+                "name": "edit",
+                "type": "mutation",
+                "method": "categoriePrestation/updateCategoriePrestation"
+
+            }
+
+        ]
+    }
+
+
+
+]

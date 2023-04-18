@@ -1,0 +1,3 @@
+<template>
+    list appointments 
+</template>

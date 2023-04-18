@@ -1,5 +1,5 @@
 const config={
-    "api_base_url":"http://143.244.152.204"
+    "api_base_url":"http://localhost"
     
 }
 export default config

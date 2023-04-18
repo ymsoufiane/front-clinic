@@ -1,0 +1,86 @@
+[
+    {
+        "name": "Role Name",
+        "champ": "roleName",
+        "type": "text",
+        "filter": {
+            "placeholder": "Role Name",
+            "type": "text",
+            "champ": "roles.role_name",
+            "op": "like"
+        }
+    },
+    {
+        "name": "Description",
+        "champ": "description",
+        "type": "text",
+        "filter": {
+            "placeholder": "Description",
+            "type": "text",
+            "champ": "roles.description",
+            "op": "like"
+        }
+    },
+    {
+        "name": "Priviliges",
+        "champ": "priviliges",
+        "type": "text",
+        "filter": {
+            "placeholder": "Priviliges",
+            "type": "tagInput",
+            "champ": "priviliges",
+            "isCustomFilter": true,
+            "op": "=",
+            "options": []
+        }
+    },
+    {
+        "name": "Etat",
+        "type": "action",
+        "filter": {
+            "placeholder": "Etat",
+            "type": "select",
+            "champ": "roles.etat",
+            "op": "=",
+            "options": [
+                {
+                    "name": "enable",
+                    "value": 1
+                },
+                {
+                    "name": "disable",
+                    "value": 0
+                }
+            ]
+        },
+        "actions": [
+            {
+                "name": "toggle",
+                "type": "action",
+                "id": "ID",
+                "champ": "etat",
+                "method": "table/updateEtat",
+                "data": {
+                    "path": "/accountService/role/updateEtat"
+                }
+            }
+        ]
+    },
+    {
+        "name": "Action",
+        "type": "action",
+        "filter": {},
+        "actions": [
+            {
+                "name": "edit",
+                "type": "mutation",
+                "method": "role/updateRole"
+            },
+            {
+                "name": "delete",
+                "type": "action",
+                "method": "role/deleteRole"
+            }
+        ]
+    }
+]

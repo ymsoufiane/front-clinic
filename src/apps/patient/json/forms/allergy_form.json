@@ -1,0 +1,19 @@
+[
+    {
+        "type": "text",
+        "name": "allergyName",
+        "placeholder": "",
+        "title": "Allergy name"
+    },
+    {
+        "type": "text",
+        "name": "description",
+        "placeholder": "",
+        "title": "Description"
+    },
+    {
+        "name": "submit",
+        "type": "submit",
+        "text": "Add Allergy"
+    }
+]

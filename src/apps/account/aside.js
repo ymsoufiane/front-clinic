@@ -24,19 +24,7 @@ const groups = [
             },
         ],
     },
-    {
-        title: "Appointment",
-        
-        items: [
-            {
-                "name": "Appointment",
-                "icon":"Appointment",
-                "isActive": "",
-                "link":"/user",
-                "children": [ ]
-            },
-        ]
-    }
+
 ]
 
 export { groups }

@@ -33,6 +33,18 @@ const groups = [
                     { "name": "List Medications", "isActive": "","link":"/medications", },
                 ]
             },
+            {
+                "name": "Gestion Prestation",
+                "icon":"PatientIcon",
+                "isActive": "",
+                "link":"",
+                "children": [
+                    { "name": "Add Prestation Categorie", "isActive": "","link":"/add/prestation/categorie", },
+                    { "name": "List Prestations Categories", "isActive": "","link":"/prestation/categories", },
+                    { "name": "Add Prestation", "isActive": "","link":"/add/prestation", },
+                    { "name": "List Prestations", "isActive": "","link":"/prestations", },
+                ]
+            },
         ]
     }
 ]

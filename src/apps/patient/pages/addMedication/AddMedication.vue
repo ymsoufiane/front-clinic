@@ -4,8 +4,8 @@
   
   <script>
   import FormDashboard from '@/components/form/FormDashboard.vue';
-  import medicationForm from '../../componenets/forms/medicationForm';
-  import Api from '../../api/index';
+  import medicationForm from '../../json/forms/medication_form.json';
+  import Api from '@/api';
   import error_parse from '@/api/error_parse';
   export default {
   
@@ -36,7 +36,7 @@
           this.alertInfo={
             "type":"success",
             "showAlert":true,
-            "message":"success add user "+Medication['medicationName']
+            "message":"success add medication "+Medication['medicationName']
           }
           
         } catch (error) {

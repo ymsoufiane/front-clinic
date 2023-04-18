@@ -4,39 +4,43 @@
   
   <script>
   import FormDashboard from '@/components/form/FormDashboard.vue';
-  import allergyForm from '../../json/forms/allergy_form.json';
+  import prestationForm from '../../json/forms/prestation_form.json';
   import Api from '@/api';
+  import getCategoriePrestation from '../../mixin/getCategoriePrestation';
   import error_parse from '@/api/error_parse';
   export default {
   
-    name: 'AddAllergy',
+    name: 'AddPrestation',
+    mixins:[getCategoriePrestation],
     created() {
       this.$store.commit('form/setInitData', {})
-      this.inputs.forEach(input => {
+      this.inputs.forEach(async(input) => {
         if (input['name'] == 'submit') {
-          input['text'] = "Add Allergy"
+          input['text'] = "Add Prestation"
+        }else if(input['name']=='prestationCategorieID'){
+          input['options']=await this.getOptionsCategoriesPrestation()
         }
       });
     
     },
     data: function () {
       return {
-        inputs: [...allergyForm],
+        inputs: [...prestationForm],
         alertInfo:{}
       }
     },
     components: { FormDashboard },
     methods: {
     
-      async submit(allergy) {
+      async submit(prestation) {
         try {
-          await Api.post('/patientService/allergy/add', allergy)
+          await Api.post('/patientService/prestation/add', prestation)
           this.$store.commit('form/setErr',{})
           this.$store.commit("form/clearForm")
           this.alertInfo={
             "type":"success",
             "showAlert":true,
-            "message":"success add allergy "+allergy['allergyName']
+            "message":"success add prestation "+prestation['label']
           }
           
         } catch (error) {

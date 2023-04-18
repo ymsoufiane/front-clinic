@@ -1,0 +1,11 @@
+[
+    { "type": "text", "name": "roleName", "placeholder": "", "title": "Role name", "icon": "UserIcon" },
+    { "type": "text", "name": "description", "placeholder": "", "title": "Description", "icon": "UserIcon" },
+    {
+        "type": "tagInput",
+        "name": "priviliges",
+        "placeholder": "Select Priviliges",
+        "options": []
+    },
+    { "name": "submit", "type": "submit", "text": "Add Role" }
+]

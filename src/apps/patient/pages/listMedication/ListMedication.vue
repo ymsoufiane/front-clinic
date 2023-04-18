@@ -4,6 +4,7 @@
 
 <script>
 import TableDashboard from '@/components/tables/TableDashboard.vue'
+import medicationTable from '../../json/tables/medication_table'
 export default {
     name: "ListMedications",
     components: { TableDashboard },
@@ -19,45 +20,7 @@ export default {
     computed: {
 
         getColsName() {
-            return [
-                {
-                    'name': "Medication Name", 'champ': 'medicationName', 'type': "text",
-                    "filter": {
-                        "placeholder": "Medication Name",
-                        "type": "text",
-                        "champ": "medication_name",
-                        "op": "like"
-                    }
-                },
-                {
-                    'name': " Description", 'champ': 'description', 'type': "text",
-                    "filter": {
-                        "placeholder": "Description",
-                        "type": "text",
-                        "champ": "description",
-                        "op": "like"
-                    }
-                },
-                
-               
-                {
-                    'name': "Action",
-                    'type': "action",
-                    "filter": {},
-                    "actions": [
-                        {
-                            'name': 'edit',
-                            'type': 'mutation',
-                            'method': 'medication/updateMedication',
-
-                        },
-
-                    ]
-                },
-
-
-
-            ]
+            return medicationTable
         },
 
         getRows() {

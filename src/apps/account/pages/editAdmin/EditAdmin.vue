@@ -4,18 +4,22 @@
   
 <script>
 import FormDashboard from '@/components/form/FormDashboard.vue';
-import adminForm from '../../components/forms/adminForm';
+import adminForm from '../../json/form/admin_form.json';
 import Api from '@/api';
 import userApi from "@/apps/account/api/user";
 import error_parse from '@/api/error_parse';
+import getRoles from '../../mixin/getRoles'
 export default {
 
     name: 'EditAdmin',
+    mixins:[getRoles],
     components: { FormDashboard },
     created() {
-        this.inputs.forEach(input => {
+        this.inputs.forEach(async(input) => {
             if (input['name'] == 'submit') {
                 input['text'] = "Update Admin"
+            } else if (input['name'] == 'roles') {
+                input['options'] = await this.getOptions()
             }
         });
 

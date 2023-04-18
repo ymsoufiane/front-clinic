@@ -4,27 +4,27 @@
   
 <script>
 import FormDashboard from '@/components/form/FormDashboard.vue';
-import allergyForm from '../../json/forms/allergy_form.json';
+import PrestationCategorieForm from '../../json/forms/PrestationCategorie_form.json';
 import Api from '@/api';
 import error_parse from '@/api/error_parse';
 export default {
 
-    name: 'EditAllergy',
+    name: 'EditCategoriePrestation',
     components: { FormDashboard },
     created() {
 
-        this.inputs.forEach(input => {
+        this.inputs.forEach(async(input) => {
             if (input['name'] == 'submit') {
-                input['text'] = "Update Allergy"
+                input['text'] = "Update Prestation Categorie"
             }
         });
     },
     async mounted() {
-        let AllergyId = this.$route.params.id
+        let prestationId = this.$route.params.id
         try {
-            let response = await Api.get('/patientService/allergy/' + AllergyId)
-            let Allergy = response.data
-            this.$store.commit('form/setInitData', Allergy)
+            let response = await Api.get('/patientService/prestationCategorie/' + prestationId)
+            let categoriePrestation = response.data
+            this.$store.commit('form/setInitData', categoriePrestation)
 
         } catch (error) {
             const err = error_parse(error)
@@ -32,24 +32,23 @@ export default {
         }
     },
     data: function () {
-
         return {
             alertInfo: {},
-            inputs: [...allergyForm]
+            inputs: [...PrestationCategorieForm]
         }
     },
 
 
     methods: {
-        async submit(Allergy) {
+        async submit(categoriePrestation) {
             try {
-                await Api.post('/patientService/allergy/update', Allergy)
+                await Api.post('/patientService/prestationCategorie/update', categoriePrestation)
                 this.$store.commit('form/setErr', {})
                 this.$store.commit("form/clearForm")
                 this.alertInfo = {
                     "type": "success",
                     "showAlert": true,
-                    "message": "success update Allergy " + Allergy['allergyName']
+                    "message": "success update categorie prestation : " + categoriePrestation['label']
                 }
 
             } catch (error) {

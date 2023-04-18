@@ -5,11 +5,20 @@
 <script>
 
 import TableDashboard from '@/components/tables/TableDashboard.vue'
-import form from '../../components/forms/roleForm'
+import tableCols from '../../json/tables/role_table.json'
+import getPriviliges from '../../mixin/getPriviligesOptions';
 
 export default {
     name: "ListRoles",
+    mixins:[getPriviliges],
     components: { TableDashboard },
+    created(){
+        tableCols.forEach(async(col)=>{
+            if(col['name']=='Priviliges'){
+                col['filter']['options']=await this.getPriviligesFilterOptions()
+            }
+        })
+    },
     mounted() {
         this.$store.commit('table/setPath', "accountService/role/roles")
     },
@@ -35,7 +44,7 @@ export default {
         },
 
         getColsName() {
-            return form.tableCols
+            return tableCols
         },
 
     },

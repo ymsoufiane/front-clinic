@@ -1,0 +1,33 @@
+[
+    {
+        "type": "text",
+        "name": "label",
+        "placeholder": "",
+        "title": "Prestation  name"
+    },
+    {
+        "type": "text",
+        "name": "description",
+        "placeholder": "",
+        "title": "Description"
+    },
+    {
+        "type": "select",
+        "name": "prestationCategorieID",
+        "placeholder": "",
+        "title": "Prestation Categorie",
+        "col":"col-span-1",
+        "options":[]
+    },
+    {
+        "type":"text",
+        "name":"prix",
+        "title":"Price",
+        "placeholder":""
+    },
+    {
+        "name": "submit",
+        "type": "submit",
+        "text": "Add Prestation "
+    }
+]

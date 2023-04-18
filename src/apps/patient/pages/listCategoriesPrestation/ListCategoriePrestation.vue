@@ -4,19 +4,19 @@
 
 <script>
 import TableDashboard from '@/components/tables/TableDashboard.vue'
-import allergyTable from '../../json/tables/allergy_table'
+import prestationCategorieTable from '../../json/tables/prestationCategorie_table'
 export default {
-    name: "ListAllergy",
+    name: "ListPrestationCategorie",
     components: { TableDashboard },
     mounted() {
-        this.$store.commit('table/setPath', "patientService/allergy/allergys")
-        this.$store.commit('table/setPathExportData',"patientService/allergy/export/")
+        this.$store.commit('table/setPath', "patientService/prestationCategorie/prestationCategories")
+        this.$store.commit('table/setPathExportData',"patientService/prestationCategorie/export/")
     },
 
     computed: {
 
         getColsName() {
-            return allergyTable
+            return prestationCategorieTable
         },
 
         getRows() {
