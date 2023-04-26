@@ -1,5 +1,8 @@
 <template>
-    <div class="tag-input-select ">
+    <div class="tag-input-select py-2">
+        <div class="title py  text-sm" :class="colorTitle">
+            {{ input['title'] }}
+        </div>
         <div v-if="selectedTags.length > 0" class="tags">
             <div class="tag" v-for="(tag, index) in selectedTags" :key="index">
                 {{ tag['name'] }}

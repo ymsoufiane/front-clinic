@@ -2,17 +2,17 @@ import Api from '@/api';
 import error_parse from '@/api/error_parse';
 
 export default {
-    async deleteRole(id){
+    async deleteAccountType(id){
         try {
-            const response = await Api.post('/accountService/role/delete/'+id)
+            const response = await Api.post('/accountService/accountType/delete/'+id)
             return response
         } catch (err) {
             return error_parse(err) 
         }
     },
-    async addRole(role,callback){
+    async addAccountType(accountType,callback){
         try {
-            await Api.post('/accountService/role/add', role)
+            await Api.post('/accountService/accountType/add', accountType)
             callback(null)
         } catch (error) {
             const err=error_parse(error)
@@ -20,9 +20,9 @@ export default {
         }
         
     },
-    async updateRole(role,callback){
+    async updateAccountType(accountType,callback){
         try {
-            await Api.post('/accountService/role/update/' + role['ID'], role)
+            await Api.post('/accountService/accountType/update/' + accountType['ID'], accountType)
             callback(null)
         } catch (error) {
             const err=error_parse(error)

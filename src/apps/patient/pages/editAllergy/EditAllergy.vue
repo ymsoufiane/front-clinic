@@ -5,8 +5,7 @@
 <script>
 import FormDashboard from '@/components/form/FormDashboard.vue';
 import allergyForm from '../../json/forms/allergy_form.json';
-import Api from '@/api';
-import error_parse from '@/api/error_parse';
+import allegyApi from "@/apps/patient/api/allergy";
 export default {
 
     name: 'EditAllergy',
@@ -20,16 +19,11 @@ export default {
         });
     },
     async mounted() {
-        let AllergyId = this.$route.params.id
-        try {
-            let response = await Api.get('/patientService/allergy/' + AllergyId)
-            let Allergy = response.data
-            this.$store.commit('form/setInitData', Allergy)
+        let allergyId = this.$route.params.id
+        allegyApi.getAllergy(allergyId,(err,allergy)=>{
+            this.$store.commit('form/setInitData', allergy)
+        })
 
-        } catch (error) {
-            const err = error_parse(error)
-            this.$store.commit('form/setErr', err)
-        }
     },
     data: function () {
 
@@ -42,8 +36,11 @@ export default {
 
     methods: {
         async submit(Allergy) {
-            try {
-                await Api.post('/patientService/allergy/update', Allergy)
+            allegyApi.updateAllergy(allegyApi, (err) => {
+                if (err != null) {
+                    this.$store.commit('form/setErr', err)
+                    return
+                }
                 this.$store.commit('form/setErr', {})
                 this.$store.commit("form/clearForm")
                 this.alertInfo = {
@@ -51,11 +48,8 @@ export default {
                     "showAlert": true,
                     "message": "success update Allergy " + Allergy['allergyName']
                 }
+            })
 
-            } catch (error) {
-                const err = error_parse(error)
-                this.$store.commit('form/setErr', err)
-            }
         }
     }
 }

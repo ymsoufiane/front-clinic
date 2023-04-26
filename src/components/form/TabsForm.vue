@@ -12,7 +12,7 @@
       <div class="flex-1">
         <form @submit="handleSubmit">
           <div v-for="(group, index) in groups" :key="index">
-            <div v-show="index == activeTabIndex" class="grid gap-x-4 sm:grid-cols-10 lg:grid-cols-20 ">
+            <div v-show="index == activeTabIndex" class="grid gap-x-4 sm:grid-cols-5 lg:grid-cols-10 ">
               <template v-for="(input, index1) in group.inputs" :key="index1">
                 <GenericInput @changeValueInput="handelChange($event)" :input="input" />
               </template>

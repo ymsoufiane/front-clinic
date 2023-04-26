@@ -1,9 +1,11 @@
 <template>
     
     <div  class="min-h-screen  bg-[#f1f5f9] h-full grid lg:grid-cols-5 md:grid-cols-10 sm:grid-cols-8 ">
-        <div v-if="isOpen" class="lg:col-span-1 md:col-span-3 sm:col-span-3 ">
-            <AsideDashboard />
-        </div>
+        <transition >
+            <div v-if="isOpen" class="lg:col-span-1 md:col-span-3 sm:col-span-3 ">
+                <AsideDashboard />
+            </div>
+        </transition>
         <div :class="getClassMain" class="border-[#e8e8e8] border-b-2">
             <NavDahboard class="bg-white" />
             <loading v-show="isLoading" :isLoading="isLoading"></loading>
@@ -46,4 +48,15 @@ export default {
 
 }
 </script>
+<style>
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.2s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+}
+</style>
   

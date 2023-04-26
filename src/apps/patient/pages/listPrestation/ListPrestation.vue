@@ -31,8 +31,8 @@ export default {
         getRows() {
             let rows= this.$store.getters['table/getRows']
             rows.forEach((row)=>{
-                console.log(row['prestationCategorie'])
-                row['categorie']=row['prestationCategorie']['label']
+                if(row['prestationCategorie'])
+                    row['categorie']=row['prestationCategorie']['label']
             })
             return rows
         },

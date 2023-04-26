@@ -1,0 +1,4 @@
+[
+    { "type": "text", "name": "departement", "placeholder": "", "title": "Account type" },
+    { "name": "submit", "type": "submit", "text": "Add Role" }
+]

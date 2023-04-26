@@ -21,7 +21,7 @@
     },
     {
         "type":"text",
-        "name":"prix",
+        "name":"price",
         "title":"Price",
         "placeholder":""
     },

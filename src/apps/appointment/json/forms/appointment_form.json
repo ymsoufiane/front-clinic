@@ -1,0 +1,55 @@
+[
+    {
+        "type": "select",
+        "name": "patientId",
+        "placeholder": "Select Patient",
+        "title": "Patient",
+        "col":"col-span-1",
+        "options":[]
+    },
+    {
+        "type": "select",
+        "name": "departementId",
+        "placeholder": "Select Departement",
+        "title": "Department",
+        "col":"col-span-1",
+        "options":[]
+    },
+    {
+        "type": "select",
+        "name": "doctorId",
+        "placeholder": "Select Doctor",
+        "title": "Doctor",
+        "col":"col-span-1",
+        "options":[]
+    },
+    {
+        "type": "date",
+        "name": "date",
+        "placeholder": "",
+        "title": "Date"
+    },
+    {
+        "type": "select",
+        "name": "prestationId",
+        "placeholder": "Select Prestation ",
+        "title": "Prestation",
+        "col":"col-span-1",
+        "options":[
+            {"name":"prestation 1","value":1}
+        ]
+    },
+    {
+        "type": "select",
+        "name": "startHour",
+        "placeholder": "Select Start Time",
+        "title": "Start Time",
+        "col":"col-span-1",
+        "options":[]
+    },
+    {
+        "name": "submit",
+        "type": "submit",
+        "text": "Add Prestation "
+    }
+]

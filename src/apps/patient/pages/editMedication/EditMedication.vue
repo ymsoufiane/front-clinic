@@ -5,8 +5,7 @@
 <script>
 import FormDashboard from '@/components/form/FormDashboard.vue';
 import medicationForm from '../../json/forms/medication_form.json';
-import Api from '@/api';
-import error_parse from '@/api/error_parse';
+import medicationApi from "@/apps/patient/api/medication";
 export default {
 
     name: 'EditMedication',
@@ -21,15 +20,11 @@ export default {
     },
     async mounted() {
         let medicationId = this.$route.params.id
-        try {
-            let response = await Api.get('/patientService/medication/' + medicationId)
-            let medication = response.data
+        medicationApi.getMedication(medicationId, (err, medication) => {
+            if (err != null) return
             this.$store.commit('form/setInitData', medication)
+        })
 
-        } catch (error) {
-            const err = error_parse(error)
-            this.$store.commit('form/setErr', err)
-        }
     },
     data: function () {
 
@@ -42,8 +37,11 @@ export default {
 
     methods: {
         async submit(medication) {
-            try {
-                await Api.post('/patientService/medication/update', medication)
+            medicationApi.updateMedication(medication, (err) => {
+                if (err != null) {
+                    this.$store.commit('form/setErr', err)
+                    return
+                }
                 this.$store.commit('form/setErr', {})
                 this.$store.commit("form/clearForm")
                 this.alertInfo = {
@@ -51,11 +49,8 @@ export default {
                     "showAlert": true,
                     "message": "success update Medication " + medication['MedicationName']
                 }
+            })
 
-            } catch (error) {
-                const err = error_parse(error)
-                this.$store.commit('form/setErr', err)
-            }
         }
     }
 }

@@ -7,6 +7,7 @@ import ListAdmin from './pages/listAdmin/ListAdmin'
 import EditAdmin from './pages/editAdmin/EditAdmin'
 
 
+
 const routes = [
   {
     path: '/add/admin',

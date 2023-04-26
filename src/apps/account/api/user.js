@@ -33,6 +33,26 @@ export default {
         } catch (err) {
             return error_parse(err) 
         }
+    },
+    async addUser(user,callback){
+        try {
+            await Api.post('/accountService/user/add', user)
+            callback(null)
+        } catch (error) {
+            const err=error_parse(error)
+            callback(err)
+        }
+        
+    },
+    async updateUser(user,callback){
+        try {
+            await Api.post('/accountService/user/update/' + user['ID'], user)
+            callback(null)
+        } catch (error) {
+            const err=error_parse(error)
+            callback(err)
+        }
     }
+
 
 }

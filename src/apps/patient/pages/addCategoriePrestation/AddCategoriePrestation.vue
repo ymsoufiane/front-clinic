@@ -5,8 +5,7 @@
 <script>
 import FormDashboard from '@/components/form/FormDashboard.vue';
 import PrestationCategorieForm from '../../json/forms/PrestationCategorie_form.json';
-import Api from '@/api';
-import error_parse from '@/api/error_parse';
+import categoriePrestationApi from "@/apps/patient/api/categoriePrestation";
 export default {
 
   name: 'AddPrestationCategorie',
@@ -28,21 +27,21 @@ export default {
   components: { FormDashboard },
   methods: {
 
-    async submit(PrestationCategorie) {
-      try {
-        await Api.post('/patientService/prestationCategorie/add', PrestationCategorie)
+    async submit(prestationCategorie) {
+      categoriePrestationApi.addCategorie(prestationCategorie,(err)=>{
+        if (err != null) {
+          this.$store.commit('form/setErr', err)
+          return
+        }
         this.$store.commit('form/setErr', {})
         this.$store.commit("form/clearForm")
         this.alertInfo = {
           "type": "success",
           "showAlert": true,
-          "message": "success add prestation categorie " + PrestationCategorie['label']
+          "message": "success add prestation categorie " + prestationCategorie['label']
         }
-
-      } catch (error) {
-        const err = error_parse(error)
-        this.$store.commit('form/setErr', err)
-      }
+      })
+     
 
     }
   }

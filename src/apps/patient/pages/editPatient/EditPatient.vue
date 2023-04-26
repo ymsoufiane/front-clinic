@@ -5,8 +5,8 @@
 <script>
 import patientForm from '../../json/forms/patient_form.json';
 import TabsForm from '@/components/form/TabsForm.vue';
-import Api from '@/api';
-import error_parse from '@/api/error_parse';
+import patientApi from "@/apps/patient/api/patient";
+
 export default {
 
     name: 'EditPatient',
@@ -19,10 +19,13 @@ export default {
 
     },
     async mounted() {
-        let userId = this.$route.params.id
-        try {
-            let response = await Api.get('/patientService/patient/' + userId)
-            let patient = response.data
+        let patientId = this.$route.params.id
+        console.log("patientId+>>>>")
+        console.log(patientId)
+        patientApi.getPatient(patientId, (err, patient) => {
+            if (err != null) {
+                return
+            }
             patient['gender'] = { "name": patient['gender'], "value": patient['gender'] }
             patient['bloodType'] = { "name": patient['bloodType'], "value": patient['bloodType'] }
             patient['maritalStatus'] = { "name": patient['maritalStatus'], "value": patient['maritalStatus'] }
@@ -33,11 +36,8 @@ export default {
             patient['dateOfLastVisit'] = patient['dateOfLastVisit'].substring(0, 10);
             this.$store.commit('form/setInitData', patient)
 
+        })
 
-        } catch (error) {
-            const err = error_parse(error)
-            this.$store.commit('form/setErr', err)
-        }
     },
     data: function () {
 
@@ -49,21 +49,21 @@ export default {
 
 
     methods: {
-        async submit(user) {
-            try {
-                await Api.post('/patientService/patient/update', user)
+        async submit(patient) {
+            patientApi.addPatient(patient, (err) => {
+                if (err != null) {
+                    this.$store.commit('form/setErr', err)
+                    return
+                }
                 this.$store.commit('form/setErr', {})
                 this.$store.commit("form/clearForm")
                 this.alertInfo = {
                     "type": "success",
                     "showAlert": true,
-                    "message": "success update patient " + user['firstName']
+                    "message": "success update patient " + patient['firstName']
                 }
+            })
 
-            } catch (error) {
-                const err = error_parse(error)
-                this.$store.commit('form/setErr', err)
-            }
         }
     }
 }

@@ -9,7 +9,7 @@ const groups = [
                 "isActive": "",
                 "link":"",
                 "children": [
-                    { "name": "Add New Appointment", "isActive": "","link":"/add/appointment", },
+                    { "name": "Add Appointment", "isActive": "","link":"/add/appointment", },
                     { "name": "List Appointment", "isActive": "","link":"/appointments", },
                 ]
             },

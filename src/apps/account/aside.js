@@ -8,8 +8,8 @@ const groups = [
                 "icon":"UserIcon",
                 "link":"",
                 "children": [
-                    { "name": "Add Admin", "isActive": "","link":"/add/admin", },
-                    { "name": "List Admin", "isActive": "","link":"/users", },
+                    { "name": "Add User", "isActive": "","link":"/add/admin", },
+                    { "name": "List Users", "isActive": "","link":"/users", },
                 ]
             },
             {
@@ -22,6 +22,8 @@ const groups = [
                     { "name": "List Roles", "isActive": "","link":"/roles", },
                 ]
             },
+
+
         ],
     },
 

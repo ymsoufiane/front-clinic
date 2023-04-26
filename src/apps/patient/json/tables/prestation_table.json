@@ -9,12 +9,12 @@
         }
     },
     {
-        "name": " Description", "champ": "description", "type": "text",
+        "name": " Price", "champ": "price", "type": "text",
         "filter": {
-            "placeholder": "Description",
+            "placeholder": "Price",
             "type": "text",
-            "champ": "description",
-            "op": "like"
+            "champ": "price",
+            "op": "="
         }
     },
     {
@@ -27,6 +27,15 @@
             "champ": "prestation_categorie_id",
             "op": "=",
             "options": []
+        }
+    },
+    {
+        "name": " Description", "champ": "description", "type": "text",
+        "filter": {
+            "placeholder": "Description",
+            "type": "text",
+            "champ": "description",
+            "op": "like"
         }
     },
    

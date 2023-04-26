@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="text-start">
         <router-link :to="item.link">
             <div @click="open" :class="getClassItem"
                 class="text-start active-hover cursor-pointer font-normal font-sans text-[#ffffffa1] rounded p-2 my-2 grid grid-cols-6 ">
@@ -9,7 +9,7 @@
                 <DownIcon v-if="hasChildren && active" fill="white" stroke="white" width="20px" />
             </div>
         </router-link>
-        <div v-if="active && hasChildren">
+        <div class="pl-16" v-if="active && hasChildren">
             <router-link v-for="(child, index) in item.children" :key="index"  :to="child.link">
                 <div  @click="setActiveChild(index)" :class="getItem['children'][index]['isActive']"
                     class="active-hover  font-normal font-sans text-[#ffffffa1]  rounded p-2 my-[1px] grid grid-cols-6">

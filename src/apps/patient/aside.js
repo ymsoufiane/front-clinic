@@ -39,8 +39,8 @@ const groups = [
                 "isActive": "",
                 "link":"",
                 "children": [
-                    { "name": "Add Prestation Categorie", "isActive": "","link":"/add/prestation/categorie", },
-                    { "name": "List Prestations Categories", "isActive": "","link":"/prestation/categories", },
+                    { "name": "Add Categorie", "isActive": "","link":"/add/prestation/categorie", },
+                    { "name": "List Categories", "isActive": "","link":"/prestation/categories", },
                     { "name": "Add Prestation", "isActive": "","link":"/add/prestation", },
                     { "name": "List Prestations", "isActive": "","link":"/prestations", },
                 ]

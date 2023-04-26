@@ -1,34 +1,33 @@
 <template>
-  <FormDashboard :alertInfo="alertInfo" @submitForm="submit" :inputs="inputs" />
+  <FormDashboard :alertInfo="alertInfo" :inputs="inputs" @submitForm="submit" />
 </template>
-  
+
 <script>
 import FormDashboard from '@/components/form/FormDashboard.vue';
-import medicationForm from '../../json/forms/medication_form.json';
-import medicationApi from "@/apps/patient/api/medication";
+import accountType_form from '../../json/form/accountType_form.json';
+import accountTypeApi from "@/apps/account/api/accountType";
 export default {
-
-  name: 'AddMedication',
+  name: 'AddAccountType',
   created() {
     this.$store.commit('form/setInitData', {})
-    this.inputs.forEach(input => {
+    this.inputs.forEach(async (input) => {
       if (input['name'] == 'submit') {
-        input['text'] = "Add Medication"
-      }
+        input['text'] = "Add Account Type"
+      } 
     });
 
   },
   data: function () {
     return {
-      inputs: [...medicationForm],
+      inputs: [...accountType_form],
       alertInfo: {}
     }
   },
   components: { FormDashboard },
   methods: {
 
-    async submit(medication) {
-      medicationApi.addMedication(medication, (err) => {
+    async submit(accountType) {
+      accountTypeApi.addAccountType(accountType, (err) => {
         if (err != null) {
           this.$store.commit('form/setErr', err)
           return
@@ -38,13 +37,11 @@ export default {
         this.alertInfo = {
           "type": "success",
           "showAlert": true,
-          "message": "success add medication " + medication['medicationName']
+          "message": "success add accountType " + accountType['accountType']
         }
+
       })
-
-
     }
   }
 }
 </script>
-  

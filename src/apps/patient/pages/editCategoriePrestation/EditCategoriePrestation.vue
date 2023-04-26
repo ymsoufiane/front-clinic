@@ -5,15 +5,14 @@
 <script>
 import FormDashboard from '@/components/form/FormDashboard.vue';
 import PrestationCategorieForm from '../../json/forms/PrestationCategorie_form.json';
-import Api from '@/api';
-import error_parse from '@/api/error_parse';
+import categoriePrestationApi from "@/apps/patient/api/categoriePrestation";
 export default {
 
     name: 'EditCategoriePrestation',
     components: { FormDashboard },
     created() {
 
-        this.inputs.forEach(async(input) => {
+        this.inputs.forEach(async (input) => {
             if (input['name'] == 'submit') {
                 input['text'] = "Update Prestation Categorie"
             }
@@ -21,15 +20,11 @@ export default {
     },
     async mounted() {
         let prestationId = this.$route.params.id
-        try {
-            let response = await Api.get('/patientService/prestationCategorie/' + prestationId)
-            let categoriePrestation = response.data
-            this.$store.commit('form/setInitData', categoriePrestation)
-
-        } catch (error) {
-            const err = error_parse(error)
-            this.$store.commit('form/setErr', err)
-        }
+        categoriePrestationApi.getCategorie(prestationId, (err, categorie) => {
+            if(err!=null) return 
+            this.$store.commit('form/setInitData', categorie)
+        })
+       
     },
     data: function () {
         return {
@@ -41,8 +36,11 @@ export default {
 
     methods: {
         async submit(categoriePrestation) {
-            try {
-                await Api.post('/patientService/prestationCategorie/update', categoriePrestation)
+            categoriePrestationApi.updateCategorie(categoriePrestation, (err) => {
+                if (err != null) {
+                    this.$store.commit('form/setErr', err)
+                    return
+                }
                 this.$store.commit('form/setErr', {})
                 this.$store.commit("form/clearForm")
                 this.alertInfo = {
@@ -50,11 +48,8 @@ export default {
                     "showAlert": true,
                     "message": "success update categorie prestation : " + categoriePrestation['label']
                 }
+            })
 
-            } catch (error) {
-                const err = error_parse(error)
-                this.$store.commit('form/setErr', err)
-            }
         }
     }
 }

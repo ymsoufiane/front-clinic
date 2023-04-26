@@ -10,7 +10,17 @@
         "name":"roles",
         "type": "tagInput",
         "placeholder": "Select Roles",
-        "options":[]
+        "options":[],
+        "title":"Roles",
+        "col":"col-span-1"
+    },
+    {
+        "name":"accountTypeId",
+        "type": "select",
+        "placeholder": "Select Account Type",
+        "options":[],
+        "title":"Account Type",
+        "col":"col-span-1"
     },
     { "name":"submit","type": "submit", "text": "Add User" }
 

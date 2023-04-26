@@ -55,6 +55,18 @@
         }
     },
     {
+        "name": "type",
+        "champ": "accountType",
+        "type": "text",
+        "filter": {
+            "placeholder": "Select..",
+            "type": "select",
+            "champ": "account_type_id",
+            "options":[],
+            "op": "="
+        }
+    },
+    {
         "name": "etat",
         "type": "action",
         "filter": {

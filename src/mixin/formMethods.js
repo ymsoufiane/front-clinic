@@ -24,6 +24,7 @@ const formMethods={
             else
                 this.formData[$event['input']['name']] = $event['value']
 
+            this.$emit('changeForm', this.formData)
 
         },
     },
