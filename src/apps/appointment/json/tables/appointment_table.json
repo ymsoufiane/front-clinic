@@ -1,0 +1,109 @@
+[
+    {
+        "name": "Patient",
+        "champ": "patient",
+        "type": "text",
+        "filter": {
+            "placeholder": "Patient",
+            "isCustomFilter": true,
+            "type": "text",
+            "champ": "patient",
+            "op": "like"
+        }
+    },
+    {
+        "name": "Departement",
+        "champ": "departement",
+        "type": "text",
+        "filter": {
+            "placeholder": "Departement",
+            "isCustomFilter": true,
+            "type": "text",
+            "champ": "departement",
+            "op": "like"
+        }
+    },
+    {
+        "name": "Doctor",
+        "champ": "doctor",
+        "type": "text",
+        "filter": {
+            "placeholder": "Doctor",
+            "isCustomFilter": true,
+            "type": "text",
+            "champ": "doctor",
+            "op": "like"
+        }
+    },
+    {
+        "name": "Phone Number",
+        "champ": "phoneNumber",
+        "type": "text",
+        "filter": {
+            "isCustomFilter": true,
+            "placeholder": "Phone Number",
+            "type": "text",
+            "champ": "patientPhone",
+            "op": "like"
+        }
+    },
+
+    {
+        "name": "Room",
+        "champ": "room",
+        "type": "text",
+        "filter": {
+            "placeholder": "Room",
+            "isCustomFilter": true,
+            "type": "text",
+            "champ": "room",
+            "op": "like"
+        }
+    },
+    {
+        "name": "Date",
+        "champ": "date",
+        "type": "text",
+        "filter": {
+            "placeholder": "Room",
+            "isCustomFilter": true,
+            "type": "date",
+            "champ": "date",
+            "op": "="
+        }
+    },
+    {
+        "name": "Start Hour",
+        "champ": "startHour",
+        "type": "text",
+        "filter": {
+           
+        }
+    },
+    {
+        "name": "End Hour",
+        "champ": "endHour",
+        "type": "text",
+        "filter": {
+          
+        }
+    },
+
+    {
+        "name": "Action",
+        "type": "action",
+        "filter": {},
+        "actions": [
+            {
+                "name": "edit",
+                "type": "mutation",
+                "method": "user/updateAdmin"
+            },
+            {
+                "name": "delete",
+                "type": "action",
+                "method": "user/deleteUser"
+            }
+        ]
+    }
+]

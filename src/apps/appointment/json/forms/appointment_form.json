@@ -35,8 +35,65 @@
         "placeholder": "Select Prestation ",
         "title": "Prestation",
         "col":"col-span-1",
+        "options":[]
+    },
+    {
+        "type": "select",
+        "name": "roomId",
+        "placeholder": "Select Room",
+        "title": "Room",
+        "col":"col-span-1",
+        "options":[]
+    },
+    {
+        "type": "select",
+        "name": "duration",
+        "placeholder": "Select Duration Time",
+        "title": "Duration Time",
+        "col":"col-span-1",
         "options":[
-            {"name":"prestation 1","value":1}
+            {
+                "name": "5 min",
+                "value": "5m"
+            },
+            {
+                "name": "10 min",
+                "value": "10m"
+            },
+            {
+                "name": "15 min",
+                "value": "15m"
+            },
+            {
+                "name": "20 min",
+                "value": "20m"
+            },
+            {
+                "name": "25 min",
+                "value": "25m"
+            },
+            {
+                "name": "30 min",
+                "value": "30m"
+            },
+            {
+                "name": "35 min",
+                "value": "35m"
+            },
+            {
+                "name": "40 min",
+                "value": "40m"
+            },
+            {
+                "name": "45 min",
+                "value": "45m"
+            },
+            {
+                "name": "50 min",
+                "value": "50m"
+            }
+
+
         ]
     },
     {
@@ -47,6 +104,7 @@
         "col":"col-span-1",
         "options":[]
     },
+    
     {
         "name": "submit",
         "type": "submit",

@@ -4,7 +4,7 @@ import error_parse from '@/api/error_parse';
 export default {
     async addPrestation(prestation,callback){
         try {
-            await Api.post('/patientService/prestation/add', prestation)
+            await Api.post('/accountService/prestation/add', prestation)
             callback(null)
         } catch (error) {
             const err=error_parse(error)
@@ -13,7 +13,7 @@ export default {
     },
     async updatePrestation(prestation,callback){
         try {
-            await Api.post('/patientService/prestation/update', prestation)
+            await Api.post('/accountService/prestation/update', prestation)
             callback(null)
         } catch (error) {
             const err=error_parse(error)
@@ -22,7 +22,7 @@ export default {
     },
     async getPrestation(id,callback){
         try {
-            let response=await Api.get('/patientService/prestation/'+id)
+            let response=await Api.get('/accountService/prestation/'+id)
             callback(null,response.data)
         } catch (error) {
             console.log(error)

@@ -18,8 +18,8 @@ export default {
         })
     },
     mounted() {
-        this.$store.commit('table/setPath', "patientService/prestation/prestations")
-        this.$store.commit('table/setPathExportData',"patientService/prestation/export/")
+        this.$store.commit('table/setPath', "accountService/prestation/prestations")
+        this.$store.commit('table/setPathExportData',"accountService/prestation/export/")
     },
 
     computed: {

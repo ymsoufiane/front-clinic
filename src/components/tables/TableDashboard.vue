@@ -1,6 +1,9 @@
 <template>
-    <InputSearchTables />
-
+    <InputSearchTables >
+        <template v-slot:search_section>
+            <slot name="search_section"></slot>
+        </template>
+    </InputSearchTables>
     <table class="w-full shadow-sm rounded-xl text-start">
         <thead class="bg-[#f8f9fa]">
             <tr class="border-b">
@@ -18,7 +21,7 @@
         </thead>
         <tbody class="bg-white">
             <tr class="border-b">
-                <td class="p-2 text-sm" v-for="(column, columnIndex) in columns" :key="columnIndex">
+                <td class="p-[3px] text-sm" v-for="(column, columnIndex) in columns" :key="columnIndex">
                     <GenericInput @changeValueInput="filter($event, column['filter'])" v-if="column['filter']['type'] != null"
                         :input="column['filter']" />
                 </td>
@@ -128,7 +131,7 @@ export default {
         },
         showIconOrderBy(column) {
             const currentOrderByColumn = this.$store.getters['table/getOrderBy']
-            if (currentOrderByColumn['name'] == column['champ']) {
+            if (currentOrderByColumn['name'] == column['filter']['champ']) {
                 return currentOrderByColumn['order']
             }
             return ''

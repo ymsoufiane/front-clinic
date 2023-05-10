@@ -42,6 +42,8 @@ export default {
 
     methods: {
         async submit(prestation) {
+            prestation['price']=parseFloat(prestation['price'])
+            prestation['taxe']=parseFloat(prestation['taxe'])
             prestationApi.updatePrestation(prestation, (err) => {
                 if (err != null) {
                     this.$store.commit('form/setErr', err)

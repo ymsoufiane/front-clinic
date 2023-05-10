@@ -9,8 +9,8 @@ export default {
     name: "ListPrestationCategorie",
     components: { TableDashboard },
     mounted() {
-        this.$store.commit('table/setPath', "patientService/prestationCategorie/prestationCategories")
-        this.$store.commit('table/setPathExportData',"patientService/prestationCategorie/export/")
+        this.$store.commit('table/setPath', "accountService/prestationCategorie/prestationCategories")
+        this.$store.commit('table/setPathExportData',"accountService/prestationCategorie/export/")
     },
 
     computed: {

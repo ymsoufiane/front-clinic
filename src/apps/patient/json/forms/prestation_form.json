@@ -11,19 +11,25 @@
         "placeholder": "",
         "title": "Description"
     },
-    {
-        "type": "select",
-        "name": "prestationCategorieID",
-        "placeholder": "",
-        "title": "Prestation Categorie",
-        "col":"col-span-1",
-        "options":[]
-    },
+    
     {
         "type":"text",
         "name":"price",
         "title":"Price",
         "placeholder":""
+    },
+    {
+        "type":"text",
+        "name":"taxe",
+        "title":"Taxe",
+        "placeholder":""
+    },
+    {
+        "type": "select",
+        "name": "prestationCategorieID",
+        "placeholder": "",
+        "title": "Prestation Categorie",
+        "options":[]
     },
     {
         "name": "submit",

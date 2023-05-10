@@ -1,5 +1,5 @@
 <template>
-  <FormDashboard @changeForm="updateDataHandler" :alertInfo="alertInfo" @submitForm="submit" :inputs="inputs" />
+  <FormDashboard @changeForm="updateDataHandler"  :alertInfo="alertInfo" @submitForm="submit" :inputs="inputs" />
   <Popup @close="close" :isOpen="popupOpen" >
       <TabsFormDashboard :alertInfo="alertPopup" @submitForm="addPatient" :groups="PopupInputs" />
   </Popup>
@@ -13,7 +13,7 @@ import TabsFormDashboard from '@/components/form/TabsForm.vue';
 import FormDashboard from '@/components/form/FormDashboard.vue';
 import appointmentApi from "@/apps/appointment/api/appointment";
 import patientApi from "@/apps/patient/api/patient";
-import getAppointmentData from "@/apps/account/mixin/getAppointmentData"
+import getAppointmentData from "@/apps/appointment/mixin/getAppointmentData"
 export default {
   name: 'AddAppointment',
   mixins: [getAppointmentData],
@@ -42,7 +42,13 @@ export default {
       inputs: [...appointmentForm],
       alertInfo: {},
       alertPopup:{},
-      endTime:""
+      endTime:"",
+      departementId:-1,
+      doctorId:-1,
+      prestationId:-1,
+      duration:"",
+      startHour:"",
+      date:""
     };
   },
   methods:{
@@ -50,11 +56,37 @@ export default {
       this.popupOpen = false
     },
     updateDataHandler(formData){
-      console.log(formData)
       this.popupOpen=formData['patientId']==0
-      this.setDoctorsOptions(formData['departementId'])
-      this.setAvailableTime(formData['doctorId'],formData['date'])
-      this.setEndTime(formData['startHour'])
+      if(this.departementId!=formData['departementId']){
+        this.departementId=formData['departementId']
+        this.setDoctorsOptions(formData['departementId'])
+
+      }else if(this.doctorId!=formData['doctorId']){
+
+        this.doctorId=formData['doctorId']
+        this.setAvailableTime(formData['doctorId'],formData['roomId'],formData['date'],formData['duration'])
+        this.setPrestationOptions(formData['doctorId'])
+
+      }else if(this.startHour!=formData['startHour']){
+        this.startHour=formData['startHour']
+        this.setEndTime(formData['startHour'],formData['duration'])
+      }else if(this.date!=formData['date']){
+        this.date=formData['date']
+        this.setAvailableTime(formData['doctorId'],formData['roomId'],formData['date'],formData['duration'])
+      }else if(this.roomId!=formData['roomId']){
+        this.roomId=formData['roomId']
+        this.setAvailableTime(formData['doctorId'],formData['roomId'],formData['date'],formData['duration'])
+      }
+      else if(this.prestationId!=formData['prestationId']){
+        this.prestationId=formData['prestationId']
+        this.setRoomsOptions(formData['doctorId'],formData['prestationId'],formData['date'])
+      }else if(this.duration!=formData['duration']){
+        this.duration=formData['duration']
+        this.setAvailableTime(formData['doctorId'],formData['roomId'],formData['date'],formData['duration'])
+      }
+
+
+      
     },
     setDoctorsOptions(departementId){
       this.inputs.forEach(async(input) => {
@@ -63,20 +95,36 @@ export default {
         }
       })
     },
-    setAvailableTime(doctorId,date){
-      if(!doctorId || !date) return
+    setAvailableTime(doctorId,roomId,date,duration){
+      if(!doctorId || !date || !roomId ) return
       this.inputs.forEach(async(input) => {
         if (input['name'] == 'startHour') {
-          input['options']=await this.getAppointmentAvailableTimes(doctorId,date)
+          input['options']=await this.getAppointmentAvailableTimes(doctorId,roomId,date,duration)
         }
       })
     },
-    setEndTime(startTime){
+    setPrestationOptions(doctorId){
+      if(!doctorId) return
+      this.inputs.forEach(async(input) => {
+        if (input['name'] == 'prestationId') {
+          input['options']=await this.getPrestationsOptions(doctorId)
+        }
+      })
+    },
+    setRoomsOptions(doctorId,prestationId,date){
+      if(!doctorId || !prestationId) return
+      this.inputs.forEach(async(input) => {
+        if (input['name'] == 'roomId') {
+          input['options']=await this.getRoomsOptions(doctorId,prestationId,date)
+        }
+      })
+    },
+    setEndTime(startTime,duration){
       if(!startTime) return
       const [hours, minutes] = startTime.split(":");
       const date = new Date();
       date.setHours(hours, minutes, 0, 0);
-      date.setMinutes(date.getMinutes() + 15);
+      date.setMinutes(date.getMinutes() + parseInt(duration.split("m")[0]));
       const endTime=date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
       this.endTime=endTime
 
@@ -132,66 +180,11 @@ export default {
       })
     }
 
+  },
+  computed:{
+
   }
-}
-</script>
-
-
-
-
-
-
-
-
-
-<!-- 
-<template>
-  <TabsFormDashboard :alertInfo="alertInfo" @submitForm="submit" :inputs="inputs" />
-</template>
   
-<script>
-import TabsFormDashboard from '@/components/form/TabsFormDashboard.vue';
-import appointmentForm from '../../json/forms/appointment_form.json';
-import appointmentApi from "@/apps/appointment/api/appointment";
-export default {
-
-  name: 'AddAppointment',
-  created() {
-    this.$store.commit('form/setInitData', {})
-    this.inputs.forEach(input => {
-      if (input['name'] == 'submit') {
-        input['text'] = "Add Appointment"
-      }
-    });
-
-  },
-  data: function () {
-    return {
-      inputs: [...appointmentForm],
-      alertInfo: {}
-    }
-  },
-  components: { TabsFormDashboard },
-  methods: {
-
-    async submit(appointment) {
-      appointmentApi.addAppointment(appointment, (err) => {
-        if (err != null) {
-          this.$store.commit('form/setErr', err)
-          return
-        }
-        this.$store.commit('form/setErr', {})
-        this.$store.commit("form/clearForm")
-        this.alertInfo = {
-          "type": "success",
-          "showAlert": true,
-          "message": "success add appointment in " + appointment['date']
-        }
-      })
-
-
-    }
-  }
 }
 </script>
-   -->
+

@@ -116,13 +116,16 @@ const tableStore = {
         addFilter(state, item) {
             state.rows = []
             let notExist = true
-            state.filter.forEach(e => {
+            state.filter.forEach((e,index) => {
                 if (item['champ'] == e['champ']) {
                     notExist = false
+                    if(item['value']==""){
+                        state.filter.splice(index,1)
+                    }
                     e['value'] = item['value']
                 }
             });
-            if (notExist) {
+            if (notExist&&item['value']!="") {
                 state.filter.push(item)
             }
 

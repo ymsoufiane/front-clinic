@@ -1,6 +1,8 @@
 [
     {
-        "name": "First Name", "champ": "firstName", "type": "text",
+        "name": "First Name",
+        "champ": "firstName",
+        "type": "text",
         "filter": {
             "placeholder": "First Name",
             "type": "text",
@@ -9,7 +11,9 @@
         }
     },
     {
-        "name": "Last Name", "champ": "lastName", "type": "text",
+        "name": "Last Name",
+        "champ": "lastName",
+        "type": "text",
         "filter": {
             "placeholder": "Last Name",
             "type": "text",
@@ -18,7 +22,9 @@
         }
     },
     {
-        "name": "Phone Number", "champ": "phoneNumber", "type": "text",
+        "name": "Phone Number",
+        "champ": "phoneNumber",
+        "type": "text",
         "filter": {
             "placeholder": "Phone Number",
             "type": "text",
@@ -26,9 +32,10 @@
             "op": "like"
         }
     },
-
     {
-        "name": "E-mail ", "champ": "emailAddresse", "type": "text",
+        "name": "E-mail ",
+        "champ": "emailAddresse",
+        "type": "text",
         "filter": {
             "placeholder": "E-mail",
             "type": "text",
@@ -37,21 +44,38 @@
         }
     },
     {
-        "name": "Preferred Contact Method ", "champ": "preferredContactMethod", "type": "text",
+        "name": "Preferred Contact Method ",
+        "champ": "preferredContactMethod",
+        "type": "text",
         "filter": {
             "placeholder": "Select ...",
             "type": "select",
             "champ": "preferred_contact_method",
             "op": "=",
             "options": [
-                { "name": "Phone", "value": "Phone" },
-                { "name": "Email", "value": "Email" },
-                { "name": "Text", "value": "Text" }
+                {
+                    "name": "Clear",
+                    "value": ""
+                },
+                {
+                    "name": "Phone",
+                    "value": "Phone"
+                },
+                {
+                    "name": "Email",
+                    "value": "Email"
+                },
+                {
+                    "name": "Text",
+                    "value": "Text"
+                }
             ]
         }
     },
     {
-        "name": "Addresse ", "champ": "addresse", "type": "text",
+        "name": "Addresse ",
+        "champ": "addresse",
+        "type": "text",
         "filter": {
             "placeholder": "Addresse",
             "type": "text",
@@ -68,12 +92,7 @@
                 "name": "edit",
                 "type": "mutation",
                 "method": "patient/updatePatient"
-
             }
-
         ]
     }
-
-
-
 ]

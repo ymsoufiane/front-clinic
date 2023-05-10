@@ -76,6 +76,10 @@
             "op": "=",
             "options": [
                 {
+                    "name":"Clear",
+                    "value":""
+                },
+                {
                     "name": "enable",
                     "value": "1"
                 },

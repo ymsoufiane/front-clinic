@@ -9,11 +9,20 @@
         }
     },
     {
-        "name": " Price", "champ": "price", "type": "text",
+        "name": "Price", "champ": "price", "type": "text",
         "filter": {
             "placeholder": "Price",
             "type": "text",
             "champ": "price",
+            "op": "="
+        }
+    },
+    {
+        "name": "Taxe", "champ": "taxe", "type": "text",
+        "filter": {
+            "placeholder": "Taxe",
+            "type": "text",
+            "champ": "taxe",
             "op": "="
         }
     },
