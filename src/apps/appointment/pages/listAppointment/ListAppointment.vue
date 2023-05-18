@@ -16,12 +16,10 @@ export default {
     name: "ListAppointment",
     components: { TableDashboard, FilterIcon },
     created() {
-
-    },
-    mounted() {
         this.$store.commit('table/setPath', "appointmentService/appointment/getAppointments")
         this.$store.commit('table/setPathExportData', "appointmentService/appointment/export/")
     },
+
     data: function () {
         return {
 
@@ -35,8 +33,13 @@ export default {
 
         getRows() {
             let appointments = this.$store.getters['table/getRows']
-
+            let etatColors={
+                "green": "text-[#0ac074]",
+                "red": "text-[#e74c3c]",
+                "bleu": "text-[#6571ff]",
+            }
             return appointments.map((appointment) => {
+
                 return {
                     "date": new Date(appointment["date"]).toLocaleDateString(),
                     "startHour": appointment["startHour"],
@@ -46,7 +49,12 @@ export default {
                     "patient": appointment["Patient"]["firstName"] + " " + appointment["Patient"]["lastName"],
                     "departement": appointment["Room"]['Departement']["departement"],
                     "phoneNumber": appointment["Patient"]["phoneNumber"],
-
+                    "iconColor": etatColors[appointment["etat"]],
+                    "confirmIconColor": appointment["etat"]=="pending"?etatColors["bleu"]:etatColors["green"],
+                    "etat": appointment["etat"],
+                    "showConfirmIcon": (appointment["etat"]!="absent"  && appointment["etat"]!="canceled"),
+                    "showCancelIcon": appointment["etat"]=="pending",
+                    "showDeleteIcon":(appointment["etat"]=="absent"  || appointment["etat"]=="canceled"),
                 }
             })
 

@@ -1,13 +1,12 @@
 
 import TaskIcon from '../../components/icons/TaskIcon.vue'
 import UsersIcon from './components/icons/UsersIcon.vue'
-import AppointmenetIcon from './components/icons/AppointmenetIcon.vue'
+import DashboardIcon from '@/components/icons/DashboardIcon.vue'
 
 const icons=[
     {'name':'TaskIcon','icon':TaskIcon},
     {'name':'UserIcon','icon':UsersIcon},
-    {'name':'Appointment','icon':AppointmenetIcon},
-
+    {'name':'DashboardIcon','icon':DashboardIcon},
 ]
 
 export  {icons}

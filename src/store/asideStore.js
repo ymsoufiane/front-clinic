@@ -3,11 +3,25 @@ const asideStore = {
     namespaced: true,
     state() {
         return {
-            groups: [],
-            activeGroup:0,
-            activeItem:0,
-            activeChild:0,
-            isOpen:true,
+            groups: [
+                {
+                    title: "General",
+                    items: [
+                        {
+                            "name": "Dashboard",
+                            "isActive": "",
+                            "link": "/dashboard",
+                            "icon": "DashboardIcon",
+                            "children": []
+                        },
+                    ]
+                }
+
+            ],
+            activeGroup: 0,
+            activeItem: 0,
+            activeChild: 0,
+            isOpen: true,
         }
     },
     mutations: {
@@ -18,28 +32,28 @@ const asideStore = {
         addGroup(state, group) {
             state.groups.push(group)
         },
-        activeItem:(state,info)=>{
-            const item=state.groups[state.activeGroup]['items'][state.activeItem]
-            item['isActive']=""
-            if(item['children'].length>0)
-                item['children'][state.activeChild]['isActive']=""
-            state.activeGroup=info.groupIndex
-            state.activeItem=info.itemIndex
-            state.activeChild=0
-            state.groups[info.groupIndex]['items'][info.itemIndex]['isActive']="active"
+        activeItem: (state, info) => {
+            const item = state.groups[state.activeGroup]['items'][state.activeItem]
+            item['isActive'] = ""
+            if (item['children'].length > 0)
+                item['children'][state.activeChild]['isActive'] = ""
+            state.activeGroup = info.groupIndex
+            state.activeItem = info.itemIndex
+            state.activeChild = 0
+            state.groups[info.groupIndex]['items'][info.itemIndex]['isActive'] = "active"
         },
-        activeChildItem(state,info){
-            const item=state.groups[state.activeGroup]['items'][state.activeItem]   
-            item['isActive']=""
-            item['children'][state.activeChild]['isActive']=""
-            state.activeGroup=info.groupIndex
-            state.activeItem=info.itemIndex
-            state.activeChild=info.indexChild
-            state.groups[state.activeGroup]['items'][state.activeItem]['children'][info.indexChild]['isActive']="active"
+        activeChildItem(state, info) {
+            const item = state.groups[state.activeGroup]['items'][state.activeItem]
+            item['isActive'] = ""
+            item['children'][state.activeChild]['isActive'] = ""
+            state.activeGroup = info.groupIndex
+            state.activeItem = info.itemIndex
+            state.activeChild = info.indexChild
+            state.groups[state.activeGroup]['items'][state.activeItem]['children'][info.indexChild]['isActive'] = "active"
         },
 
-        changeEtat(state){
-            state.isOpen=!state.isOpen
+        changeEtat(state) {
+            state.isOpen = !state.isOpen
         }
 
 
@@ -48,14 +62,14 @@ const asideStore = {
         getGroups(state) {
             return state.groups
         },
-        getEtatItem:(state)=>(groupIndex,itemIndex)=>{
+        getEtatItem: (state) => (groupIndex, itemIndex) => {
             return state.groups[groupIndex]['items'][itemIndex]['isActive']
         },
-        getItem:(state)=>(groupIndex,itemIndex)=>{
+        getItem: (state) => (groupIndex, itemIndex) => {
             return state.groups[groupIndex]['items'][itemIndex]
         },
 
-        getEtat(state){
+        getEtat(state) {
             return state.isOpen
         }
 

@@ -48,8 +48,11 @@ export default {
         initEtat(newValue){
             this.isOpen=newValue
         },
-        message(){
-            this.isOpen=true
+        message(newValue){
+            if(newValue!=""&&newValue)
+                this.isOpen=true
+            else 
+                this.isOpen=false
         }
     },
     computed: {

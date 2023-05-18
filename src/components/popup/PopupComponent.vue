@@ -1,7 +1,7 @@
 <template>
   <transition name="popup">
     <div
-      class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center"
+      class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-10"
       v-if="isOpen"
       @click.self="close"
     >
@@ -25,6 +25,7 @@ export default {
   },
   methods: {
     close() {
+      
       this.$emit('close');
     },
   },

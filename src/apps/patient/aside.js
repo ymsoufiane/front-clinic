@@ -15,7 +15,7 @@ const groups = [
             },
             {
                 "name": "Gestion Allergy",
-                "icon":"PatientIcon",
+                "icon":"AllergyIcon",
                 "isActive": "",
                 "link":"",
                 "children": [
@@ -25,7 +25,7 @@ const groups = [
             },
             {
                 "name": "Gestion Medications",
-                "icon":"PatientIcon",
+                "icon":"MedicationIcon",
                 "isActive": "",
                 "link":"",
                 "children": [
@@ -35,7 +35,7 @@ const groups = [
             },
             {
                 "name": "Gestion Prestation",
-                "icon":"PatientIcon",
+                "icon":"PrestationIcon",
                 "isActive": "",
                 "link":"",
                 "children": [

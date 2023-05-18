@@ -1,5 +1,5 @@
 <template>
-    <InputSearchTables >
+    <InputSearchTables>
         <template v-slot:search_section>
             <slot name="search_section"></slot>
         </template>
@@ -22,8 +22,8 @@
         <tbody class="bg-white">
             <tr class="border-b">
                 <td class="p-[3px] text-sm" v-for="(column, columnIndex) in columns" :key="columnIndex">
-                    <GenericInput @changeValueInput="filter($event, column['filter'])" v-if="column['filter']['type'] != null"
-                        :input="column['filter']" />
+                    <GenericInput @changeValueInput="filter($event, column['filter'])"
+                        v-if="column['filter']['type'] != null" :input="column['filter']" />
                 </td>
             </tr>
 
@@ -33,13 +33,25 @@
                         {{ row[column['champ']] }}
                     </span>
                     <div class="flex" v-else-if="column['type'] == 'action'">
-                        <div class="w-min" v-for="(action, index) in column['actions']" 
-                            :key="index">
-                            <EditIcon @click="runAction(action, row)" v-if="action['name'] == 'edit'" class="icon-form cursor-pointer m-0" />
-                            <DeleteIcon @click="runAction(action, row)"  v-if="action['name'] == 'delete'" class="icon-form cursor-pointer m-0 fill-white" />
-                            <div v-if="action['name'] == 'toggle'">
-                                <ToggleButton @change="runAction(action, row)" :value="row[action['champ']]" :id="row[action['id']]" />
+                        <div class="w-min" v-for="(action, index) in column['actions']" :key="index">
+                            <EditIcon @click="runAction(action, row)" v-if="action['name'] == 'edit'"
+                                class="icon-form cursor-pointer m-0" />
+                            <DeleteIcon @click="runAction(action, row)" v-else-if="action['name'] == 'delete' && row['showDeleteIcon']!=false"
+                                class="icon-form  cursor-pointer m-0 fill-white" />
+                            <span  v-else-if="action['name'] == 'confirm' && row['showConfirmIcon']!=false" title="Confirm">
+                                <ConfirmIcon @click="runAction(action, row)"
+                                    class="icon-form w-5 h-5 cursor-pointer m-0 " :class="row['confirmIconColor']" />
+                            </span>
+                            <span title="Cancel" v-else-if="action['name'] == 'cancel'  && row['showCancelIcon']!=false" >
+                                <CancelIcon @click="runAction(action, row)" 
+                                class="w-5 h-5 text-[#f62947]  cursor-pointer m-0 " />
+                            </span>
+                            <div v-else-if="action['name'] == 'toggle'">
+
+                                <ToggleButton @change="runAction(action, row)" :value="row[action['champ']]"
+                                    :id="row[action['id']]" />
                             </div>
+
                         </div>
                     </div>
                     <div v-else-if="column['type'] == 'image'" class="flex justify-center ">
@@ -59,6 +71,8 @@
 <script>
 import EditIcon from '@/components/icons/EditIcon.vue';
 import DeleteIcon from '@/components/icons/DeleteIcon.vue'
+import ConfirmIcon from '@/components/icons/ConfirmIcon.vue';
+import CancelIcon from '@/components/icons/CancelIcon.vue';
 import ToggleButton from '@/components/buttons/ToggleButton.vue'
 import InputSearchTables from '@/components/inputs/InputSearchTables.vue'
 import PaginationComponent from '@/components/pagination/PaginationComponent.vue';
@@ -69,7 +83,12 @@ import GenericInput from '../inputs/GenericInput.vue';
 export default {
 
     name: 'TableDahboard',
-    components: { EditIcon, DeleteIcon, ToggleButton, InputSearchTables, DownIcon, UpIcon, GenericInput, PaginationComponent },
+    components: {
+        EditIcon, DeleteIcon, ToggleButton,
+        InputSearchTables, DownIcon, UpIcon,
+        GenericInput, PaginationComponent, ConfirmIcon,
+        CancelIcon
+    },
     data: function () {
         return {
             isLoading: true,
@@ -123,7 +142,7 @@ export default {
             if (filter['type'] == 'select')
                 payload['value'] = event['value']['value']
 
-            if(filter['isCustomFilter'])
+            if (filter['isCustomFilter'])
                 this.$store.commit('table/addCustomFilter', payload)
             else
                 this.$store.commit('table/addFilter', payload)
@@ -167,7 +186,7 @@ export default {
             type: String
         },
     },
-   
+
 }
 </script>
   

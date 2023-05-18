@@ -1,5 +1,6 @@
 <template>
-    <full-calendar ref="calendar" :options="calendarOptions" />
+  <full-calendar ref="calendar" :options="calendarOptions" />
+  
 </template>
 
 <script>
@@ -8,6 +9,7 @@ import FullCalendar from '@fullcalendar/vue3';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
+
 
 export default defineComponent({
   components: {
@@ -25,8 +27,8 @@ export default defineComponent({
     return { calendar, currentView, setView };
   },
 
-  props:{
-    appointments:{
+  props: {
+    appointments: {
       type: Array,
       required: true
     }
@@ -38,7 +40,7 @@ export default defineComponent({
       calendarOptions: {
         plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
         initialView: 'dayGridMonth',
-        events:this.appointments,
+        events: this.appointments,
         dateClick: this.handleDateClick,
         eventClick: this.eventClick,
         headerToolbar: {
@@ -56,21 +58,24 @@ export default defineComponent({
     };
   },
   methods: {
+   
     eventClick(info) {
       console.log('Event clicked:', info.event.extendedProps);
-      alert('Event clicked: ' + info.event.title);
+    //  alert('Event clicked: ' + info.event.title);
+      this.$emit('eventClick', info);
     },
     handleDateClick(info) {
-      alert('Clicked on: ' + info.dateStr);
+      
+      this.$emit('dateClick', info);
     },
   },
-  watch:{
-    appointments:{
-      handler:function(){
-        this.calendarOptions.events=this.appointments;
+  watch: {
+    appointments: {
+      handler: function () {
+        this.calendarOptions.events = this.appointments;
 
       },
-      deep:true
+      deep: true
     }
   }
 });

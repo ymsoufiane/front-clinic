@@ -5,6 +5,7 @@ import installApp from './plugins/installApp'
 import './assets/tailwind.css'
 import config from './config'
 import store from './store'
+import VueApexCharts from "vue3-apexcharts";
 
 
 const INSTALLED_APPS=[
@@ -19,5 +20,6 @@ const app=createApp(App)
     app.use(installApp,{apps:INSTALLED_APPS,'router':router}).
     use(store).
     use(router).
+    use(VueApexCharts).
     mount('#app')
 

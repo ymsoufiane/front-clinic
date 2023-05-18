@@ -3,10 +3,10 @@
         <router-link :to="item.link">
             <div @click="open" :class="getClassItem"
                 class="text-start active-hover cursor-pointer font-normal font-sans text-[#ffffffa1] rounded p-2 my-2 grid grid-cols-6 ">
-                <DynamicIcon width="20px" :component="item.icon" />
+                <DynamicIcon class="w-6 h-6" :component="item.icon" />
                 <div class="col-span-4"> {{ item.name }}</div>
-                <RightIcon v-if="hasChildren && !active" width="20px" />
-                <DownIcon v-if="hasChildren && active" fill="white" stroke="white" width="20px" />
+                <RightIcon v-if="hasChildren && !active" class="w-5 h-5" />
+                <DownIcon v-if="hasChildren && active" fill="white" stroke="white" class="w-5 h-5" />
             </div>
         </router-link>
         <div class="pl-16" v-if="active && hasChildren">

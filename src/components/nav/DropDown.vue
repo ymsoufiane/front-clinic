@@ -2,7 +2,7 @@
     <div class="relative" @click="toggleDropdown">
       <button class="flex items-center justify-center space-x-2 focus:outline-none">
         <img  class="rounded-full w-9" :src="getAvatar" alt="avatar" srcset="">
-        <span>{{ getUserName }}</span>
+        <span>{{ getUserName }} </span>
       </button>
       <div
         class="absolute left-0 z-50 py-2 mt-2 bg-white rounded shadow-lg w-48"
@@ -41,6 +41,7 @@
       },
       logout() {
         localStorage.clear()
+        this.$store.commit("user/setToken", null)   
         this.$router.push("/login")
       }
     },

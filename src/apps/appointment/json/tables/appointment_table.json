@@ -88,6 +88,25 @@
           
         }
     },
+    {
+        "name": "Etat",
+        "champ": "etat",
+        "type": "text",
+        
+        "filter": {
+            "placeholder": "Etat",
+            "type": "select",
+            "champ": "etat",
+            "isCustomFilter": true,
+            "op": "=",
+            "options":[
+                {"name":"Pending","value":"pending"},
+                {"name":"Confirmed","value":"confirmed"},
+                {"name":"Canceled","value":"canceled"},
+                {"name":"Absent","value":"absent"}
+            ]
+        }
+    },
 
     {
         "name": "Action",
@@ -95,14 +114,19 @@
         "filter": {},
         "actions": [
             {
-                "name": "edit",
+                "name": "confirm",
                 "type": "mutation",
-                "method": "user/updateAdmin"
+                "method": "user/"
+            },
+            {
+                "name": "cancel",
+                "type": "mutation",
+                "method": "user/upda"
             },
             {
                 "name": "delete",
                 "type": "action",
-                "method": "user/deleteUser"
+                "method": "role/de"
             }
         ]
     }
